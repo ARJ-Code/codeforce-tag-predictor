@@ -2,9 +2,9 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import csv
+import sys
 
-cant = 100
-
+cant = 100 if len(sys.argv) == 0 else int(sys.argv[1])
 
 def build_url(problem):
     return f'https://codeforces.com/contest/{problem["contestId"]}/problem/{problem["index"]}'
@@ -48,7 +48,7 @@ def write_dicts_to_csv(data, filename):
                 if k in row:
                     new_row[k] = row[k]
 
-            if len(new_row) == len(headers):
+            if len(new_row) != len(headers):
                 continue
 
             writer.writerow(new_row)
