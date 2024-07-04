@@ -32,33 +32,30 @@ def get_problems():
     return json.loads(response.text)['result']['problems'][:cant]
 
 
-def write_dicts_to_json(data, filename):
+def write_json(problem):
     headers = ['contestId', 'index', 'name',
                'rating', 'tags', 'text', 'solutions']
 
-    filter_data = []
+    new_problem = {}
 
-    for row in data:
-        new_row = {}
+    for k in headers:
+        if k in problem:
+            new_problem[k] = problem[k]
 
-        for k in headers:
-            if k in row:
-                new_row[k] = row[k]
+    if len(new_problem) != len(headers):
+        return
 
-        if len(new_row) != len(headers):
-            continue
-
-        filter_data.append(new_row)
-
-    f = open(filename, mode='w')
-    json.dump(filter_data, f)
+    f = open(
+        f'data/{new_problem["contestId"]}_{new_problem["index"]}.json', mode='w')
+    json.dump(new_problem, f)
     f.close()
 
 
-def get_accepted_cpp_solutions(problem, count=100):
+def get_accepted_solutions(problem, count=100):
     base_url = f'https://codeforces.com/problemset/status/{problem["contestId"]}/problem/{problem["index"]}?page='
     solutions = []
     page = 1
+    accepted_languages = ['C++', 'Python', 'Python 3']
 
     while len(solutions) < count:
         url = base_url + str(page)
@@ -77,7 +74,7 @@ def get_accepted_cpp_solutions(problem, count=100):
             verdict = cells[5].get_text().strip()
             language = cells[4].get_text().strip()
 
-            if verdict == 'Accepted' and 'C++' in language:
+            if verdict == 'Accepted' and any(lang in language for lang in accepted_languages):
                 submission_url = f'https://codeforces.com/contest/{problem["contestId"]}/submission/{submission_id}'
                 submission_response = requests.get(submission_url)
                 submission_soup = BeautifulSoup(
@@ -85,7 +82,8 @@ def get_accepted_cpp_solutions(problem, count=100):
                 code_div = submission_soup.find(
                     'pre', {'id': 'program-source-text'})
                 if code_div:
-                    solutions.append(code_div.get_text())
+                    solutions.append(
+                        {'code': code_div.get_text(), 'language': language})
                     if len(solutions) >= count:
                         break
 
@@ -99,6 +97,5 @@ problems = get_problems()
 for p in problems:
     url = build_url_text(p)
     p["text"] = get_problem_text(url)
-    p["solutions"] = get_accepted_cpp_solutions(p, cant_sol)
-
-write_dicts_to_json(problems, 'data/data.json')
+    p["solutions"] = get_accepted_solutions(p, cant_sol)
+    write_json(p)
