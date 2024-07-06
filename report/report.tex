@@ -21,7 +21,7 @@ urlcolor=blue, }
     \vspace{3cm}
     {\scshape\Huge Predicción de Problemas de Codeforce\par}
     \vfill
-
+    
     {\Large Juan Carlos Espinosa Delgado C-411 \par}
     {\Large Raudel Alejandro Gómez Molina C-411 \par}
     {\Large Alex Sierra Alcalá C-411 \par}
@@ -88,25 +88,25 @@ El objetivo general de este proyecto es desarrollar un sistema automatizado util
               \item Recolectar un conjunto representativo de problemas de Codeforces, incluyendo sus descripciones, restricciones de tiempo y memoria, y etiquetas existentes.
               \item Realizar el preprocesamiento del texto de las descripciones para normalizar y limpiar los datos, facilitando su análisis.
           \end{itemize}
-
+          
     \item \textbf{Desarrollo del Modelo de Machine Learning:}
           \begin{itemize}
               \item Investigar y seleccionar algoritmos de Machine Learning apropiados para la tarea de clasificación de texto, como KNN, Naive Bayes, y redes neuronales.
               \item Entrenar varios modelos utilizando el conjunto de datos preprocesado, ajustando hiperparámetros para optimizar el rendimiento.
           \end{itemize}
-
+          
     \item \textbf{Evaluación del Modelo:}
           \begin{itemize}
               \item Evaluar los modelos entrenados utilizando métricas de rendimiento como precisión, recall, F1-score y exactitud.
               \item Comparar los resultados de diferentes modelos para identificar el más eficaz en la detección de etiquetas.
           \end{itemize}
-
+          
     \item \textbf{Implementación y Prueba:}
           \begin{itemize}
               \item Implementar el modelo seleccionado en un entorno de prueba para evaluar su rendimiento en condiciones reales.
               \item Realizar pruebas adicionales para validar la consistencia y robustez del sistema en la asignación de etiquetas.
           \end{itemize}
-
+          
     \item \textbf{Documentación y Propuesta de Mejora:}
           \begin{itemize}
               \item Documentar el proceso completo de desarrollo, incluyendo la recolección de datos, preprocesamiento, desarrollo del modelo, evaluación e implementación.
@@ -135,6 +135,63 @@ El objetivo general de este proyecto es desarrollar un sistema automatizado util
     \item ¿Cuáles son las principales limitaciones y desafíos al aplicar Machine Learning en la detección de etiquetas en problemas de programación competitiva?
 \end{itemize}
 
+\section{Análisis de los datos}
+
+Como dataset usaremos un conjunto de problemas de Codeforces con su identificador, descripción, conjunto de tags, puntos y rating. 
+
+\subsection{Exploración de datos}
+
+Para esto primero exploramos los datos buscando filas con ausencia de datos y eliminamos datos que no son de interés para
+nuestro problema. 
+
+En este caso hemos identificado que las columnas asociadas a los puntos y el rating cuentan con valores neuronales
+y no representan interés para nuestro problema por lo que hemos decidido eliminarlas.
+
+Luego analizamos el contenido de la descripción de los problemas y identificamos el idioma de las mismas ya que esta
+información puede ser útil para el futuro análisis empleando modelos de lenguaje.
+
+\subsubsection{Información recopilada sobre los datos}
+
+\begin{itemize}
+    \item Distribución de la longitud del texto de los Problemas
+          \begin{center}
+              \includegraphics[scale=0.8]{imgs/len_description.png}
+          \end{center}
+          \newpage          
+    \item Frecuencia de las etiquetas más comunes
+          \begin{center}
+              \includegraphics[scale=0.8]{imgs/common_tags_count.png}
+          \end{center}
+    \item Distribución de idiomas
+          \begin{center}
+              \includegraphics[scale=0.6]{imgs/langs_dist.png}
+          \end{center}
+          \newpage
+          
+    \item Nube de palabras asociada a la descripción de los problemas
+          \begin{center}
+              \includegraphics[scale=0.55]{imgs/wordcloud.png}
+          \end{center}
+    \item Matriz de correlación de las etiquetas
+          \begin{center}
+              \includegraphics[scale=0.5]{imgs/correlation_matrix.png}
+          \end{center}
+\end{itemize}
+
+\subsection{Preprocesamiento de datos}
+
+\section{Estado del arte / Preliminares}
+
+Debe incluir una revisión de la literatura sobre el problema y problemas similares.
+
+\section{Propuestas de solución}
+
+\section{Experimentación y resultados}
+
+\section{Discusión de los resultados}
+Debe incluir la repercusión ética de las soluciones.
+
+\section{Conclusiones y trabajo futuro}
 
 
 \end{document}
