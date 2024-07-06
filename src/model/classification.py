@@ -28,21 +28,19 @@ class classifier(nn.Module):
         # Set the device (GPU or CPU)
         self.device = device
 
-        # Initialize multi-label and multi-class classifiers
+        # Initialize multi-label
         self.tags_classifier = MultiLabelClassificationHead(num_labels=self.tags_num_classes).to(self.device)
 
-        # Define loss functions for multi-label and multi-class classification
+        # Define loss functions for multi-label
         self.BCE = nn.BCELoss().to(self.device)  # Binary Cross Entropy loss for multi-label classification
 
         self.model = model
         self.lr = config['lr']
-        self.task = config['task']
 
-        if self.task == 'tag':
-            self.parameters = [
-                    {'params': self.model.parameters()},
-                    {'params': self.tags_classifier.parameters()},
-                ]
+        self.parameters = [
+                {'params': self.model.parameters()},
+                {'params': self.tags_classifier.parameters()},
+            ]
 
         # Initialize the optimizer
         self.optimizer = torch.optim.Adam(
@@ -55,8 +53,7 @@ class classifier(nn.Module):
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
         pooled_output = outputs.pooler_output # Pooled output from the model
 
-        if self.task == 'tag':
-          output = self.tags_classifier(pooled_output) # Predict tags using the tags classifier
-          loss = self.BCE(output, tags_labels) # Calculate the loss for tags
+        output = self.tags_classifier(pooled_output) # Predict tags using the tags classifier
+        loss = self.BCE(output, tags_labels) # Calculate the loss for tags
 
         return loss, output

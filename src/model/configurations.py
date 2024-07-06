@@ -27,7 +27,7 @@ config = {
     'tokenizer' : RobertaTokenizer.from_pretrained('roberta-base'),
     'gradient_accumulation_steps' : 4,
     'max_grad_norm' : 1.0,
-    'task' : 'tag',
+    # 'task' : 'tag',
     'lambda' : 10,
     'save' : True,
 }
