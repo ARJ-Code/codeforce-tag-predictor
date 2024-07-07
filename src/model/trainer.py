@@ -1,5 +1,5 @@
 from collections import Counter, defaultdict
-import datetime
+from datetime import datetime
 from itertools import chain
 import os
 import shutil
@@ -9,9 +9,9 @@ import tqdm
 from sklearn.metrics import f1_score, roc_auc_score, accuracy_score
 from torch.utils.data import TensorDataset, DataLoader
 
-from model.classification import classifier
+from classification import classifier
 
-from .configurations import config
+from configurations import config
 
 class Trainer():
     def __init__(self,
@@ -115,8 +115,8 @@ class Trainer():
 
         for epoch in range(num_epochs):
             # set early stopping
-            #if count > 8:
-            #    break
+            if count > 8:
+               break
             train_loss = 0.0
             valid_loss = 0.0
 
@@ -130,7 +130,7 @@ class Trainer():
             classifier_instance.train()
             # Zero the gradients
             optimizer.zero_grad()
-            for batch in tqdm(train_dataloader):
+            for batch in tqdm.tqdm(train_dataloader):
                 # Unpack the batch
                 input_ids, attention_mask, tags_labels = batch
 
@@ -162,7 +162,7 @@ class Trainer():
             #model.eval()
             classifier_instance.eval()
             with torch.no_grad():
-                for batch in tqdm(valid_dataloader):
+                for batch in tqdm.tqdm(valid_dataloader):
                     # Unpack the batch
                     input_ids, attention_mask, tags_labels = batch
 
@@ -270,7 +270,7 @@ class Trainer():
                     max_tag_f1_macro = max(epoch_max_tag_f1_macro, max_tag_f1_macro)
 
                     if self.save:
-                        self.save_checkpoint(model, epoch)
+                        self.save_checkpoint(epoch)
                     count = 0
                     print('Best Model Saved !')
                     print()

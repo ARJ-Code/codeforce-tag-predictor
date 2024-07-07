@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from .configurations import config
+from configurations import config
 
 class MultiLabelClassificationHead(nn.Module):
     def __init__(self, num_labels, hidden_size=768):

@@ -5,11 +5,11 @@ tags = [
     'dp',
     'math',
     'greedy',
-    'data structures',
-    'brute force',
+    'datastructures',
+    'bruteforce',
     'geometry',
-    'constructive algorithms',
-    'dfs and similar',
+    'constructivealgorithms',
+    'dfsandsimilar',
     'strings'
 ]
 
@@ -21,8 +21,8 @@ config = {
     'batchSize' : 4,
     'lr' : 5e-6,
     'trainMaxLength' : 1024,
-    'testMaxLength' : 1024,
-    'numEpochs' : 200,
+    'validMaxLength' : 1024,
+    'numEpochs' : 100,
     'model' : AutoModel.from_config(model_config),
     'tokenizer' : RobertaTokenizer.from_pretrained('roberta-base'),
     'gradient_accumulation_steps' : 4,
