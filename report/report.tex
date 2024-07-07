@@ -335,15 +335,15 @@ def prompt(description):
     return f'Give this set of {all_tags_str} tags and this problem ${description}, give me the set of problem tags in the following format: greedy, implementation, dp'
 \end{lstlisting}
 
-\begin{tabular}{llr}
+\begin{tabular}{llrr}
     \toprule
-    {} & Metric        & ChatGPT  \\
+    {} & Metric        & ChatGPT & Naive Bayes \\
     \midrule
-    0  & Accuracy      & 0.020000 \\
-    1  & F1 (macro)    & 0.002431 \\
-    2  & F1 (micro)    & 0.020000 \\
-    3  & F1 (weighted) & 0.017556 \\
-    4  & F1 (samples)  & 0.002431 \\
+    0  & Accuracy      & 0.020000 & 0.146000 \\
+    1  & F1 (macro)    & 0.002431  & 0.240000 \\
+    2  & F1 (micro)    & 0.020000 & 0.390000 \\
+    3  & F1 (weighted) & 0.017556 & 0.320000 \\
+    4  & F1 (samples)  & 0.002431  & 0.390000 \\
     \bottomrule
 \end{tabular}
 
