@@ -227,50 +227,23 @@ classification_report(y_test, y_pred, target_names=mlb.classes_)
 \end{verbatim}
 
 \begin{verbatim}
-                           precision    recall  f1-score   support
+                        precision    recall  f1-score   support
 
-                 *special       0.00      0.00      0.00        47
-                    2-sat       0.00      0.00      0.00         3
-            binary search       1.00      0.01      0.01       175
-                 bitmasks       1.00      0.02      0.04        91
-              brute force       0.00      0.00      0.00       242
-chinese remainder theorem       0.00      0.00      0.00         3
-            combinatorics       0.67      0.02      0.04       106
-  constructive algorithms       0.77      0.08      0.15       289
-          data structures       0.67      0.13      0.22       286
-          dfs and similar       0.54      0.36      0.43       146
-       divide and conquer       0.00      0.00      0.00        33
-                       dp       0.38      0.05      0.09       320
-                      dsu       0.00      0.00      0.00        68
-       expression parsing       0.00      0.00      0.00         8
-                      fft       0.00      0.00      0.00        13
-                    flows       0.00      0.00      0.00        19
-                    games       1.00      0.17      0.29        35
-                 geometry       0.56      0.43      0.49        58
-          graph matchings       0.00      0.00      0.00        18
-                   graphs       0.50      0.42      0.46       160
-                   greedy       0.55      0.40      0.46       466
-                  hashing       0.00      0.00      0.00        36
-           implementation       0.51      0.50      0.51       509
-              interactive       1.00      0.32      0.48        38
-                     math       0.55      0.45      0.50       480
-                 matrices       0.00      0.00      0.00        19
-       meet-in-the-middle       0.00      0.00      0.00         6
-            number theory       0.92      0.08      0.15       137
-            probabilities       0.00      0.00      0.00        37
-                schedules       0.00      0.00      0.00         3
-           shortest paths       0.00      0.00      0.00        51
-                 sortings       0.00      0.00      0.00       167
- string suffix structures       0.00      0.00      0.00        12
-                  strings       0.67      0.54      0.60       126
-           ternary search       0.00      0.00      0.00        10
-                    trees       0.69      0.55      0.61       139
-             two pointers       0.00      0.00      0.00        89
+            bruteforce       0.20      0.02      0.03        61
+constructivealgorithms       0.50      0.01      0.03        73
+        datastructures       1.00      0.04      0.08        49
+         dfsandsimilar       0.00      0.00      0.00         4
+                    dp       0.00      0.00      0.00        50
+              geometry       1.00      0.18      0.30        17
+                greedy       0.52      0.41      0.46       111
+        implementation       0.52      0.69      0.59       142
+                  math       0.63      0.29      0.39       101
+               strings       0.83      0.37      0.51        27
 
-                micro avg       0.56      0.24      0.33      4445
-                macro avg       0.32      0.12      0.15      4445
-             weighted avg       0.50      0.24      0.28      4445
-              samples avg       0.55      0.27      0.34      4445
+             micro avg       0.55      0.30      0.39       635
+             macro avg       0.52      0.20      0.24       635
+          weighted avg       0.52      0.30      0.32       635
+           samples avg       0.54      0.33      0.39       635
 
 
 \end{verbatim}
@@ -279,13 +252,13 @@ chinese remainder theorem       0.00      0.00      0.00         3
     	\item Accuracy
 \end{itemize}
 \begin{verbatim}
-Overall Accuracy: 7.6\%
+Overall Accuracy: 14.46\%
 \end{verbatim}
 		
 \begin{itemize}
     	\item Matriz de Confusión
 \end{itemize}		
-Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/naive-bayes'model/src/naive\%20bayes\%20model/naive-bayes-model.ipynb}{jupyter interactivo}} en el que se puede consultar la matriz de confusión para cada etiqueta 
+Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main/src/naive\%20bayes\%20model/naive-bayes-model.ipynb}{jupyter interactivo}} en el que se puede consultar la matriz de confusión para cada etiqueta 
 
 \begin{itemize}
     	\item Precision ,F1-Score ,Recall y Support para cada etiqueta
