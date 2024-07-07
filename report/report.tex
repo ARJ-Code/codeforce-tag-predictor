@@ -53,7 +53,7 @@ urlcolor=blue, }
     \vspace{1cm}
     {\scshape\Large Facultad de Matemática y Computación \par}
     \vspace{3cm}
-    {\scshape\Huge Predicción de Problemas de Codeforce\par}
+    {\scshape\Huge Predicción de Problemas de Codeforces\par}
     \vfill
     
     {\Large Juan Carlos Espinosa Delgado C-411 \par}
@@ -220,8 +220,109 @@ información puede ser útil para el futuro análisis empleando modelos de lengu
 Debe incluir una revisión de la literatura sobre el problema y problemas similares.
 
 \section{Propuestas de solución}
+	\begin{itemize}
+    		\item Clasificación Multietiqueta con TF-IDF y Naive Bayes
+	\end{itemize}
 
 \section{Experimentación y resultados}
+
+\subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
+		\subsubsection{Introducción}
+La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
+		\subsubsection{Metodología}
+			\begin{itemize}
+    \item Preprocesamiento de Datos
+\end{itemize}
+El conjunto de datos preprocesado pasa a utilizar la vectorización TF-IDF para convertir los datos de texto en características numéricas. Las etiquetas se binarizaron utilizando \texttt{MultiLabelBinarizer} para adaptarse a la naturaleza multietiqueta del problema.
+
+\begin{itemize}
+    \item Entrenamiento del Modelo
+\end{itemize}
+La clasificación se realizó utilizando un clasificador Naive Bayes dentro de un marco One-vs-Rest. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20. Una vez el modelo predecía habían problemas a los cuales no se les
+asignaba ninguna etiqueta, cosa que no sucede en el codeforces, por lo cual se le hace asignar a dichos problemas la eqtiqueta más probable, garantizando así que todo problema contenga al menos una etiqueta.
+\begin{verbatim}
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(text_data)
+mlb = MultiLabelBinarizer()
+y = mlb.fit_transform(labels)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+clf = OneVsRestClassifier(MultinomialNB())
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+\end{verbatim}
+
+		\subsubsection{Resultados}
+		\begin{itemize}
+    			\item Informe de Clasificación
+		\end{itemize}
+\begin{verbatim}
+classification_report(y_test, y_pred, target_names=mlb.classes_)
+\end{verbatim}
+
+\begin{verbatim}
+                        precision    recall  f1-score   support
+
+            bruteforce       0.20      0.02      0.03        61
+constructivealgorithms       0.50      0.01      0.03        73
+        datastructures       1.00      0.04      0.08        49
+         dfsandsimilar       0.00      0.00      0.00         4
+                    dp       0.00      0.00      0.00        50
+              geometry       1.00      0.18      0.30        17
+                greedy       0.52      0.41      0.46       111
+        implementation       0.52      0.69      0.59       142
+                  math       0.63      0.29      0.39       101
+               strings       0.83      0.37      0.51        27
+
+             micro avg       0.55      0.30      0.39       635
+             macro avg       0.52      0.20      0.24       635
+          weighted avg       0.52      0.30      0.32       635
+           samples avg       0.54      0.33      0.39       635
+
+
+\end{verbatim}
+
+\begin{itemize}
+    	\item Accuracy
+\end{itemize}
+\begin{verbatim}
+Overall Accuracy: 14.46\%
+\end{verbatim}
+		
+\begin{itemize}
+    	\item Matriz de Confusión
+\end{itemize}		
+Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main/src/naive\%20bayes\%20model/naive-bayes-model.ipynb}{jupyter interactivo}} en el que se puede consultar la matriz de confusión para cada etiqueta 
+\newpage
+\begin{itemize}
+    	\item Precision ,F1-Score ,Recall y Support para cada etiqueta
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/precisonnb.png}
+    \caption{Precision}
+    \label{fig:p}
+\end{figure}
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/f1nb.png}
+    \caption{F1-Score}
+    \label{fig:f1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/recallnb.png}
+    \caption{Recall}
+    \label{fig:r}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/supportnb.png}
+    \caption{Support}
+    \label{fig:s}
+\end{figure}
 
 \subsection{Chat GPT}
 
