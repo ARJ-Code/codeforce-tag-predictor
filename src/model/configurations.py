@@ -22,7 +22,7 @@ config = {
     'lr' : 5e-6,
     'trainMaxLength' : 1024,
     'testMaxLength' : 1024,
-    'numEpochs' : 200,
+    'numEpochs' : 40,
     'model' : AutoModel.from_config(model_config),
     'tokenizer' : RobertaTokenizer.from_pretrained('roberta-base'),
     'gradient_accumulation_steps' : 4,
