@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{titling}
 \usepackage{float}
+\usepackage{longtable}
 \usepackage[text={18cm,21cm},centering]{geometry}
 \usepackage{hyperref} \hypersetup{ colorlinks=true, linkcolor=blue, filecolor=magenta,
 urlcolor=blue, }
@@ -215,32 +216,158 @@ información puede ser útil para el futuro análisis empleando modelos de lengu
 
 \subsection{Preprocesamiento de datos}
 
-\section{Estado del arte / Preliminares}
+\section{Estado del arte}
 
-Debe incluir una revisión de la literatura sobre el problema y problemas similares.
+\subsection{Revisión bibliográfica}
+
+En la revisión bibliográfica analizado encontramos 2 líneas de investigación fundamentales, modelos que analizaban solo
+el lenguaje natural y por otro lado modelos que se enfocaban análisis en el análisis de código (es decir dado el texto o el ast
+de un código en un lenguaje específico daba como salida los tags asociados a dicho código). A continuación se relacionan los 
+papers estudiados.
+
+\begin{itemize}
+    \item Preprocesamiento de Lenguaje Natural
+          
+          \begin{longtable}{|p{2cm}|p{0.8cm}|p{2cm}|p{2cm}|p{3cm}|p{2cm}|p{3cm}|}
+              \hline
+              \textbf{Paper} & \textbf{Year}                                                                                                                                                       & \textbf{Link} & \textbf{Models} & \textbf{Results} & \textbf{Dataset} & \textbf{Methods} \\
+              \hline
+              \endfirsthead
+              
+              \hline
+              \endfoot
+              
+              \hline
+              \endlastfoot
+              
+              
+              Predicting algorithmic approach for programming problems from natural language problem description 
+                             & 2016 
+                             & \href{https://ashishbora.github.io/assets/projects/nlp/report.pdf}{\url{https://ashishbora.github.io/assets/projects/nlp/report.pdf}}
+
+              
+              
+              
+                             & Long Short Term Memory (LSTM), Random Forest, dummy classifier 
+                             & Only Random Forest outperformed the dummy classifier, which predicted the most popular class 
+                             & Codeforces, considering only the first tag for each problem 
+                             & Pre-trained word2vec vectors and one-hot encoding for input data representation                                                                                                                                                                                \\
+              
+              \hline
+              Predicting algorithm classes for programming word problems
+                             & 2019
+                             & \href{https://aclanthology.org/D19-5511/}{\url{https://aclanthology.org/D19-5511/}}
+
+              
+              
+              
+                             & Convolutional Neural Networks (CNN), ensemble of CNNs, human predictors 
+                             & Best results by ensemble of CNNs; human predictors had better results than the best model but with an F1-macro score of 0.43 on top-20 multi-label classification 
+                             & Codeforces, predicting 10 and 20 most frequent tags 
+                             & Multi-class and multi-label classification approaches for tag prediction                                                                                                                                                                                       \\
+              
+              \hline
+              Multi-label classification for automatic tag prediction in the context of programming challenges
+                             & 2019
+                             & \href{https://arxiv.org/abs/1911.12224}{\url{https://arxiv.org/abs/1911.12224}}
+
+              
+              
+              
+                             & Long Short Term Memory (LSTM)
+                             & Best F1 score by LSTM over one-hot encoding; best Weighted Hamming Score by LSTM over word2vec 
+                             & Codeforces and TopCoder, tags sorted into 9 classes 
+                             & Doc2Vec, LSTM over word2vec, LSTM over one-hot encoding                                                                                                                                                                                                        \\
+              
+              \hline
+              Classification of Programming Problems based on Topic Modeling
+                             & 2019
+                             & \href{https://dl.acm.org/doi/10.1145/3323771.3323795}{\url{https://dl.acm.org/doi/10.1145/3323771.3323795}}
+
+              
+              
+              
+                             & k-Nearest Neighbors (kNN), Random Forest (RF), Multinomial Naive Bayes (MNB), Multilayer Perceptron (MLP) 
+                             & Final accuracy did not improve much compared to TF-IDF baseline (0.86 vs 0.88 accuracy); positive impact on kNN and MNB, negative on RF 
+                             & 
+                             & Topic modeling (LDA, NMF) for vectorization; classification algorithms: kNN, RF, MNB, MLP                                                                                                                                                                      \\
+              
+              \hline
+              
+          \end{longtable}
+          
+    \item Análisis de Código
+          
+          \begin{longtable}{|p{2cm}|p{0.8cm}|p{2cm}|p{2cm}|p{3cm}|p{2cm}|p{3cm}|}
+              \hline
+              \textbf{Paper} & \textbf{Year}                                                                                                                                                                                                                                                                                               & \textbf{Link} & \textbf{Models} & \textbf{Results} & \textbf{Dataset} & \textbf{Methods} \\
+              \hline
+              \endfirsthead
+              
+              \hline
+              \endfoot
+              
+              \hline
+              \endlastfoot
+              
+              
+              Automatic algorithm recognition of source-code using machine
+              learning
+                             & 2017
+                             & \href{https://www.semanticscholar.org/paper/Automatic_Algorithm_Recognition_of_Source_Code_Shalaby_Mehrez/641beb8d201a9bda_27dd0b5a7727116_cd47c7cb9}{\url{https://www.semanticscholar.org/paper/Automatic_Algorithm_Recognition_of_Source_Code_Shalaby_Mehrez/641beb8d201a9bda_27dd0b5a7727116_cd47c7cb9}}
+
+              
+              
+              
+                             & Traditional classification algorithms 
+                             & Successful application of traditional classification algorithms and code metrics for classifying solutions 
+                             & Codeforces 
+                             & Metric-based approach to source code vectorization; 30 different software metrics (e.g., number of variables of specific types, lines of code, number of loops, number of nested loops)                                                                                                                                                                                                                \\
+              
+              \hline
+              Classification and recommendation of competitive programming problems
+              using CNN
+                             & 2017
+                             & \href{https://www.researchgate.net/publication/321868484_Classification_and_Recommendation_of_Competitive_Programming_Problems_Using_CNN}{\url{https://www.researchgate.net/publication/321868484_Classification_and_Recommendation_of_Competitive_Programming_Problems_Using_CNN}}
+
+              
+              
+              
+                             & CNN character-wise 
+                             & Managed to classify solutions into four classes; combining information from all submitted solutions improved classification 
+                             & Codeforces 
+                             & Character-wise CNN; proposed combining information from classifications of individual solutions                                                                                                                                                                                                                                                                                                        \\
+              
+              \hline
+              
+          \end{longtable}
+
+             
+\end{itemize}
 
 \section{Propuestas de solución}
-	\begin{itemize}
-    		\item Clasificación Multietiqueta con TF-IDF y Naive Bayes
-	\end{itemize}
+\begin{itemize}
+    \item Clasificación Multietiqueta con TF-IDF y Naive Bayes
+\end{itemize}
 
 \section{Experimentación y resultados}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
-		\subsubsection{Introducción}
+\subsubsection{Introducción}
 La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
-		\subsubsection{Metodología}
-			\begin{itemize}
+\subsubsection{Metodología}
+\begin{itemize}
     \item Preprocesamiento de Datos
 \end{itemize}
-El conjunto de datos preprocesado pasa a utilizar la vectorización TF-IDF para convertir los datos de texto en características numéricas. Las etiquetas se binarizaron utilizando \texttt{MultiLabelBinarizer} para adaptarse a la naturaleza multietiqueta del problema.
+El conjunto de datos preprocesado pasa a utilizar la vectorización TF-IDF para convertir los datos de texto en características numéricas. Las etiquetas se transformaron a un vector binario utilizando \texttt{MultiLabelBinarizer} para adaptarse a la naturaleza multietiqueta del problema.
 
 \begin{itemize}
     \item Entrenamiento del Modelo
 \end{itemize}
 La clasificación se realizó utilizando un clasificador Naive Bayes dentro de un marco One-vs-Rest. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20. Una vez el modelo predecía habían problemas a los cuales no se les
-asignaba ninguna etiqueta, cosa que no sucede en el codeforces, por lo cual se le hace asignar a dichos problemas la eqtiqueta más probable, garantizando así que todo problema contenga al menos una etiqueta.
-\begin{verbatim}
+asignaba ninguna etiqueta, cosa que no sucede en el codeforces, por lo cual se le hace asignar a dichos problemas la etiqueta más probable, garantizando así que todo problema contenga al menos una etiqueta.
+
+\begin{lstlisting}[language=Python, caption=Naive Bayes]
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(text_data)
 mlb = MultiLabelBinarizer()
@@ -251,52 +378,47 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 clf = OneVsRestClassifier(MultinomialNB())
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
-\end{verbatim}
+\end{lstlisting}
 
-		\subsubsection{Resultados}
-		\begin{itemize}
-    			\item Informe de Clasificación
-		\end{itemize}
-\begin{verbatim}
-classification_report(y_test, y_pred, target_names=mlb.classes_)
-\end{verbatim}
+\subsubsection{Resultados}
+\begin{itemize}
+    \item Informe de Clasificación
+\end{itemize}
+\begin{lstlisting}[language=Python, caption=Informe de Clasificación]
+    classification_report(y_test, y_pred, target_names=mlb.classes_)
+\end{lstlisting}
 
-\begin{verbatim}
-                        precision    recall  f1-score   support
-
-            bruteforce       0.20      0.02      0.03        61
-constructivealgorithms       0.50      0.01      0.03        73
-        datastructures       1.00      0.04      0.08        49
-         dfsandsimilar       0.00      0.00      0.00         4
-                    dp       0.00      0.00      0.00        50
-              geometry       1.00      0.18      0.30        17
-                greedy       0.52      0.41      0.46       111
-        implementation       0.52      0.69      0.59       142
-                  math       0.63      0.29      0.39       101
-               strings       0.83      0.37      0.51        27
-
-             micro avg       0.55      0.30      0.39       635
-             macro avg       0.52      0.20      0.24       635
-          weighted avg       0.52      0.30      0.32       635
-           samples avg       0.54      0.33      0.39       635
-
-
-\end{verbatim}
+\begin{tabular}{lrrrr}
+    \toprule
+    {}                     & precision & recall   & f1-score & support \\
+    \midrule
+    bruteforce             & 0.200000  & 0.016393 & 0.030303 & 61.0    \\
+    constructivealgorithms & 0.500000  & 0.013699 & 0.026667 & 73.0    \\
+    datastructures         & 1.000000  & 0.040816 & 0.078431 & 49.0    \\
+    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 4.0     \\
+    dp                     & 0.000000  & 0.000000 & 0.000000 & 50.0    \\
+    geometry               & 1.000000  & 0.176471 & 0.300000 & 17.0    \\
+    greedy                 & 0.522727  & 0.414414 & 0.462312 & 111.0   \\
+    implementation         & 0.515789  & 0.690141 & 0.590361 & 142.0   \\
+    math                   & 0.630435  & 0.287129 & 0.394558 & 101.0   \\
+    strings                & 0.833333  & 0.370370 & 0.512821 & 27.0    \\
+    \bottomrule
+\end{tabular}
 
 \begin{itemize}
-    	\item Accuracy
+    \item Accuracy
 \end{itemize}
 \begin{verbatim}
 Overall Accuracy: 14.46\%
 \end{verbatim}
-		
+
 \begin{itemize}
-    	\item Matriz de Confusión
-\end{itemize}		
+    \item Matriz de Confusión
+\end{itemize}
 Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main/src/naive\%20bayes\%20model/naive-bayes-model.ipynb}{jupyter interactivo}} en el que se puede consultar la matriz de confusión para cada etiqueta 
 \newpage
 \begin{itemize}
-    	\item Precision ,F1-Score ,Recall y Support para cada etiqueta
+    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
 \end{itemize}
 \begin{figure}[H]
     \centering
@@ -334,17 +456,26 @@ def prompt(description):
     return f'Give this set of {all_tags_str} tags and this problem ${description}, give me the set of problem tags in the following format: greedy, implementation, dp'
 \end{lstlisting}
 
+\subsubsection{Resultados y comparación con el resto de modelos}
+
 \begin{tabular}{llrr}
     \toprule
-    {} & Metric        & ChatGPT & Naive Bayes \\
+    {} & Metric        & ChatGPT  & Naive Bayes \\
     \midrule
-    0  & Accuracy      & 0.020000 & 0.146000 \\
-    1  & F1 (macro)    & 0.002431  & 0.240000 \\
-    2  & F1 (micro)    & 0.020000 & 0.390000 \\
-    3  & F1 (weighted) & 0.017556 & 0.320000 \\
-    4  & F1 (samples)  & 0.002431  & 0.390000 \\
+    0  & Accuracy      & 0.020000 & 0.146000    \\
+    1  & F1 (macro)    & 0.002431 & 0.240000    \\
+    2  & F1 (micro)    & 0.020000 & 0.390000    \\
+    3  & F1 (weighted) & 0.017556 & 0.320000    \\
+    4  & F1 (samples)  & 0.002431 & 0.390000    \\
     \bottomrule
 \end{tabular}
+
+En el resto de los modelos comparados se obtuvieron mejores métricas en general, también vale destacar que no nos fue posible
+usar ChatGPT 4o, modelo de mayor complejidad con le que esperamos que se comporte mejor, además de que solo nos fue posible 
+analizar con ChatGPT 100 problemas ya que no disponíamos de la api y todo el trabajo se realizo de manera manual. Otro aspecto
+a destacar, fue que en la mayoría de los problemas ChatGPT respondió  con los tags que se le mostraban de ejemplo en el prompt
+lo que en alguna medida demuestra que el modelo en alguno o la mayoría de los casos alucinaba, algo que es común en estos modelos 
+de lenguaje.
 
 \section{Discusión de los resultados}
 Debe incluir la repercusión ética de las soluciones.
