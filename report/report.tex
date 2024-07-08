@@ -358,15 +358,14 @@ papers estudiados.
 \end{itemize}
 
 \section{Propuestas de solución}
-\begin{itemize}
-    \item Clasificación Multietiqueta con TF-IDF y Naive Bayes
-\end{itemize}
+\subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
+La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
+\subsection{Clasificación Multietiqueta con TF-IDF y KNN}
+Al igual que en la sección anterior, usaremos el enfoque de modelo de aprendizaje multietiquetas. La vectorización usada es la misma que en Naive-Bayes, TF-IDF para extraer características y un clasificador KNN para la clasificación. El objetivo poder comparar el rendimiento de este modelo con los otros que hemos usado.
 
 \section{Experimentación y resultados}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
-\subsubsection{Introducción}
-La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
 \subsubsection{Metodología}
 \begin{itemize}
     \item Preprocesamiento de Datos
@@ -458,10 +457,6 @@ Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main
 \end{figure}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y KNN}
-
-\subsubsection{Introducción}
-Al igual que en la sección anterior, usaremos el enfoque de modelo de aprendizaje multietiquetas. La vectorización usada es la misma que en Naive-Bayes, TF-IDF para extraer características y un clasificador KNN para la clasificación. El objetivo poder comparar el rendimiento de este modelo con los otros que hemos usado.
-
 \subsubsection{Metodología}
 \begin{itemize}
     \item Preprocesamiento de Datos
