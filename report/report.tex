@@ -220,17 +220,17 @@ información puede ser útil para el futuro análisis empleando modelos de lengu
 Debe incluir una revisión de la literatura sobre el problema y problemas similares.
 
 \section{Propuestas de solución}
-	\begin{itemize}
-    		\item Clasificación Multietiqueta con TF-IDF y Naive Bayes
-	\end{itemize}
+\begin{itemize}
+    \item Clasificación Multietiqueta con TF-IDF y Naive Bayes
+\end{itemize}
 
 \section{Experimentación y resultados}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
-		\subsubsection{Introducción}
+\subsubsection{Introducción}
 La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
-		\subsubsection{Metodología}
-			\begin{itemize}
+\subsubsection{Metodología}
+\begin{itemize}
     \item Preprocesamiento de Datos
 \end{itemize}
 El conjunto de datos preprocesado pasa a utilizar la vectorización TF-IDF para convertir los datos de texto en características numéricas. Las etiquetas se binarizaron utilizando \texttt{MultiLabelBinarizer} para adaptarse a la naturaleza multietiqueta del problema.
@@ -253,10 +253,10 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 \end{verbatim}
 
-		\subsubsection{Resultados}
-		\begin{itemize}
-    			\item Informe de Clasificación
-		\end{itemize}
+\subsubsection{Resultados}
+\begin{itemize}
+    \item Informe de Clasificación
+\end{itemize}
 \begin{verbatim}
 classification_report(y_test, y_pred, target_names=mlb.classes_)
 \end{verbatim}
@@ -284,19 +284,19 @@ constructivealgorithms       0.50      0.01      0.03        73
 \end{verbatim}
 
 \begin{itemize}
-    	\item Accuracy
+    \item Accuracy
 \end{itemize}
 \begin{verbatim}
 Overall Accuracy: 14.46\%
 \end{verbatim}
-		
+
 \begin{itemize}
-    	\item Matriz de Confusión
-\end{itemize}		
+    \item Matriz de Confusión
+\end{itemize}
 Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main/src/naive\%20bayes\%20model/naive-bayes-model.ipynb}{jupyter interactivo}} en el que se puede consultar la matriz de confusión para cada etiqueta 
 \newpage
 \begin{itemize}
-    	\item Precision ,F1-Score ,Recall y Support para cada etiqueta
+    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
 \end{itemize}
 \begin{figure}[H]
     \centering
@@ -329,7 +329,7 @@ Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main
 Al igual que en la sección anterior, usaremos el enfoque de modelo de aprendizaje multietiquetas. La vectorización usada es la misma que en Naive-Bayes, TF-IDF para extraer características y un clasificador KNN para la clasificación. El objetivo poder comparar el rendimiento de este modelo con los otros que hemos usado.
 
 \subsubsection{Metodología}
-			\begin{itemize}
+\begin{itemize}
     \item Preprocesamiento de Datos
 \end{itemize}
 además de preprocesar la descripción de los problemas para usar TF-IDF, al ser KNN un modelo que solo se puede entrenar con valores numéricos, también se binarizaron los tags de los problemas, y se eliminaron columnas poco relevantes como el idioma y la identificación de los problemas.
@@ -337,7 +337,7 @@ además de preprocesar la descripción de los problemas para usar TF-IDF, al ser
 \begin{itemize}
     \item Entrenamiento del Modelo
 \end{itemize}
-La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20.\n 
+La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20.\\ 
 Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100, dando como resultado que K = 12 era el valor con mayor precisión en los resultados.
 
 \begin{verbatim}
@@ -358,10 +358,10 @@ Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una 
         reports.append(classification_report(y_test, ypred, zero_division = 0))
     \end{verbatim}
 
-    \subsubsection{Resultados}
-    \begin{itemize}
-            \item Informe de Clasificación
-    \end{itemize}
+\subsubsection{Resultados}
+\begin{itemize}
+    \item Informe de Clasificación
+\end{itemize}
 
 \begin{verbatim}
 report = classification_report(y_test, y_pred, target_names=list(all_tags))
@@ -369,31 +369,31 @@ report = classification_report(y_test, y_pred, target_names=list(all_tags))
 
 \begin{tabular}{lrrrr}
     \toprule
-     & precision & recall & f1-score & support \\
+                           & precision & recall   & f1-score & support    \\
     \midrule
-    math & 0.410256 & 0.163265 & 0.233577 & 98.000000 \\
-    strings & 0.555556 & 0.500000 & 0.526316 & 30.000000 \\
-    datastructures & 0.900000 & 0.209302 & 0.339623 & 43.000000 \\
-    greedy & 0.500000 & 0.350000 & 0.411765 & 100.000000 \\
-    dfsandsimilar & 0.000000 & 0.000000 & 0.000000 & 10.000000 \\
-    constructivealgorithms & 0.100000 & 0.017544 & 0.029851 & 57.000000 \\
-    implementation & 0.602740 & 0.325926 & 0.423077 & 135.000000 \\
-    geometry & 1.000000 & 0.062500 & 0.117647 & 16.000000 \\
-    bruteforce & 0.500000 & 0.015152 & 0.029412 & 66.000000 \\
-    dp & 0.000000 & 0.000000 & 0.000000 & 47.000000 \\
+    math                   & 0.410256  & 0.163265 & 0.233577 & 98.000000  \\
+    strings                & 0.555556  & 0.500000 & 0.526316 & 30.000000  \\
+    datastructures         & 0.900000  & 0.209302 & 0.339623 & 43.000000  \\
+    greedy                 & 0.500000  & 0.350000 & 0.411765 & 100.000000 \\
+    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 10.000000  \\
+    constructivealgorithms & 0.100000  & 0.017544 & 0.029851 & 57.000000  \\
+    implementation         & 0.602740  & 0.325926 & 0.423077 & 135.000000 \\
+    geometry               & 1.000000  & 0.062500 & 0.117647 & 16.000000  \\
+    bruteforce             & 0.500000  & 0.015152 & 0.029412 & 66.000000  \\
+    dp                     & 0.000000  & 0.000000 & 0.000000 & 47.000000  \\
     \bottomrule
-    \end{tabular}
+\end{tabular}
 
 \begin{itemize}
     \item Accuracy
 \end{itemize}
 \begin{verbatim}
 Overall Accuracy: 8.00\%
-\end{verbatim}    
+\end{verbatim}
 
 \newpage
 \begin{itemize}
-    	\item Precision ,F1-Score ,Recall y Support para cada etiqueta
+    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
 \end{itemize}
 \begin{figure}[H]
     \centering
@@ -415,7 +415,7 @@ Overall Accuracy: 8.00\%
 \end{figure}
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.49]{imgs/supportknn.png}
+    \includegraphics[scale=0.49]{imgs/supportkn.png}
     \caption{Support}
     \label{fig:s}
 \end{figure}
@@ -433,13 +433,13 @@ def prompt(description):
 
 \begin{tabular}{|l|l|r|r|r|}
     \toprule
-    {} & Metric        & ChatGPT & Naive Bayes & KNN\\
+    {} & Metric        & ChatGPT  & Naive Bayes & KNN      \\
     \midrule
-    0  & Accuracy      & 0.020000 & 0.146000  & 0.080000\\
-    1  & F1 (macro)    & 0.002431 & 0.240000  & 0.210000\\
-    2  & F1 (micro)    & 0.020000 & 0.390000  & 0.290000\\
-    3  & F1 (weighted) & 0.017556 & 0.320000  & 0.260000\\
-    4  & F1 (samples)  & 0.002431 & 0.390000  & 0.240000\\
+    0  & Accuracy      & 0.020000 & 0.146000    & 0.080000 \\
+    1  & F1 (macro)    & 0.002431 & 0.240000    & 0.210000 \\
+    2  & F1 (micro)    & 0.020000 & 0.390000    & 0.290000 \\
+    3  & F1 (weighted) & 0.017556 & 0.320000    & 0.260000 \\
+    4  & F1 (samples)  & 0.002431 & 0.390000    & 0.240000 \\
     \bottomrule
 \end{tabular}
 
