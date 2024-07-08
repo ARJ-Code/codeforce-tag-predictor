@@ -248,6 +248,8 @@ papers estudiados.
               
               
               
+              
+              
                              & Long Short Term Memory (LSTM), Random Forest, dummy classifier 
                              & Only Random Forest outperformed the dummy classifier, which predicted the most popular class 
                              & Codeforces, considering only the first tag for each problem 
@@ -258,6 +260,8 @@ papers estudiados.
                              & 2019
                              & \href{https://aclanthology.org/D19-5511/}{\url{https://aclanthology.org/D19-5511/}}
 
+              
+              
               
               
               
@@ -274,6 +278,8 @@ papers estudiados.
               
               
               
+              
+              
                              & Long Short Term Memory (LSTM)
                              & Best F1 score by LSTM over one-hot encoding; best Weighted Hamming Score by LSTM over word2vec 
                              & Codeforces and TopCoder, tags sorted into 9 classes 
@@ -284,6 +290,8 @@ papers estudiados.
                              & 2019
                              & \href{https://dl.acm.org/doi/10.1145/3323771.3323795}{\url{https://dl.acm.org/doi/10.1145/3323771.3323795}}
 
+              
+              
               
               
               
@@ -319,6 +327,8 @@ papers estudiados.
               
               
               
+              
+              
                              & Traditional classification algorithms 
                              & Successful application of traditional classification algorithms and code metrics for classifying solutions 
                              & Codeforces 
@@ -333,6 +343,8 @@ papers estudiados.
               
               
               
+              
+              
                              & CNN character-wise 
                              & Managed to classify solutions into four classes; combining information from all submitted solutions improved classification 
                              & Codeforces 
@@ -341,8 +353,8 @@ papers estudiados.
               \hline
               
           \end{longtable}
-
-             
+          
+          
 \end{itemize}
 
 \section{Propuestas de solución}
@@ -445,6 +457,103 @@ Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main
     \label{fig:s}
 \end{figure}
 
+\subsection{Clasificación Multietiqueta con TF-IDF y KNN}
+
+\subsubsection{Introducción}
+Al igual que en la sección anterior, usaremos el enfoque de modelo de aprendizaje multietiquetas. La vectorización usada es la misma que en Naive-Bayes, TF-IDF para extraer características y un clasificador KNN para la clasificación. El objetivo poder comparar el rendimiento de este modelo con los otros que hemos usado.
+
+\subsubsection{Metodología}
+\begin{itemize}
+    \item Preprocesamiento de Datos
+\end{itemize}
+además de preprocesar la descripción de los problemas para usar TF-IDF, al ser KNN un modelo que solo se puede entrenar con valores numéricos, también se binarizaron los tags de los problemas, y se eliminaron columnas poco relevantes como el idioma y la identificación de los problemas.
+
+\begin{itemize}
+    \item Entrenamiento del Modelo
+\end{itemize}
+La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20.\\ 
+Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100, dando como resultado que K = 12 era el valor con mayor precisión en los resultados.
+
+\begin{lstlisting}[language=Python, caption=KNN]
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    neighbors = np.arange(1, 100)
+    train_accuracies = {}
+    test_accuracies = {}
+    reports = []
+    for neighbor in neighbors:
+        knn = KNeighborsClassifier(n_neighbors=neighbor)
+        mlb_knn = MultiOutputClassifier(knn)
+        mlb_knn.fit(X_train, y_train)
+        ypred = mlb_knn.predict(X_test) 
+        train_accuracies[neighbor] = mlb_knn.score(X_train, y_train)
+        test_accuracies[neighbor] = mlb_knn.score(X_test, y_test)
+        reports.append(classification_report(y_test, ypred, zero_division = 0))
+    \end{lstlisting}
+
+\subsubsection{Resultados}
+\begin{itemize}
+    \item Informe de Clasificación
+\end{itemize}
+
+\begin{verbatim}
+report = classification_report(y_test, y_pred, target_names=list(all_tags))
+\end{verbatim}
+
+\begin{tabular}{lrrrr}
+    \toprule
+                           & precision & recall   & f1-score & support    \\
+    \midrule
+    math                   & 0.410256  & 0.163265 & 0.233577 & 98.000000  \\
+    strings                & 0.555556  & 0.500000 & 0.526316 & 30.000000  \\
+    datastructures         & 0.900000  & 0.209302 & 0.339623 & 43.000000  \\
+    greedy                 & 0.500000  & 0.350000 & 0.411765 & 100.000000 \\
+    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 10.000000  \\
+    constructivealgorithms & 0.100000  & 0.017544 & 0.029851 & 57.000000  \\
+    implementation         & 0.602740  & 0.325926 & 0.423077 & 135.000000 \\
+    geometry               & 1.000000  & 0.062500 & 0.117647 & 16.000000  \\
+    bruteforce             & 0.500000  & 0.015152 & 0.029412 & 66.000000  \\
+    dp                     & 0.000000  & 0.000000 & 0.000000 & 47.000000  \\
+    \bottomrule
+\end{tabular}
+
+\begin{itemize}
+    \item Accuracy
+\end{itemize}
+\begin{verbatim}
+Overall Accuracy: 8.00\%
+\end{verbatim}
+
+\newpage
+\begin{itemize}
+    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/precisonknn.png}
+    \caption{Precision}
+    \label{fig:p}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/f1knn.png}
+    \caption{F1-Score}
+    \label{fig:f1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/recallknn.png}
+    \caption{Recall}
+    \label{fig:r}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/supportkn.png}
+    \caption{Support}
+    \label{fig:s}
+\end{figure}
+
 \subsection{Chat GPT}
 
 Para analizar que tan bien se comportaba Chat GPT 3.5, prediciendo los tags de Codeforces, usamos prompt engineering
@@ -456,17 +565,15 @@ def prompt(description):
     return f'Give this set of {all_tags_str} tags and this problem ${description}, give me the set of problem tags in the following format: greedy, implementation, dp'
 \end{lstlisting}
 
-\subsubsection{Resultados y comparación con el resto de modelos}
-
-\begin{tabular}{llrr}
+\begin{tabular}{|l|l|r|r|r|}
     \toprule
-    {} & Metric        & ChatGPT  & Naive Bayes \\
+    {} & Metric        & ChatGPT  & Naive Bayes & KNN      \\
     \midrule
-    0  & Accuracy      & 0.020000 & 0.144600    \\
-    1  & F1 (macro)    & 0.002431 & 0.240000    \\
-    2  & F1 (micro)    & 0.020000 & 0.390000    \\
-    3  & F1 (weighted) & 0.017556 & 0.320000    \\
-    4  & F1 (samples)  & 0.002431 & 0.390000    \\
+    0  & Accuracy      & 0.020000 & 0.146000    & 0.080000 \\
+    1  & F1 (macro)    & 0.002431 & 0.240000    & 0.210000 \\
+    2  & F1 (micro)    & 0.020000 & 0.390000    & 0.290000 \\
+    3  & F1 (weighted) & 0.017556 & 0.320000    & 0.260000 \\
+    4  & F1 (samples)  & 0.002431 & 0.390000    & 0.240000 \\
     \bottomrule
 \end{tabular}
 
