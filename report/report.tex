@@ -587,10 +587,36 @@ de lenguaje.
 \section{Discusión de los resultados}
 Primeramente señalar que como repercusión ética este trabajo puede ser maliciosamente utilizado en concursos online de 
 programación competitiva, donde se tiene tolerancia cero al fraude tagueando los problemas 
-y de esta manera saber con que idea atacar, aunque cabe destacar que los problemas usualmente no son tan triviales. También positivamente este trabajo es una excelente forma de que en la preparación individual en vista a competencias se pueda utilizar para solo concentrarse en problemas que tengan una etiqueta específica, además creemos que los modelos están abiertos a problemas no solo del propio codeforce, sino de otras plataformas de programación competitiva. Las ideas abordadas en el trabajo
+y de esta manera saber con que idea atacar, aunque cabe destacar que los problemas usualmente no son tan triviales. También positivamente este trabajo es una excelente forma de que en la preparación individual en vista a competencias se pueda utilizar para solo concentrarse en problemas que tengan una etiqueta específica, además creemos que los modelos están abiertos a problemas no solo del propio codeforces, sino de otras plataformas de programación competitiva. Las ideas abordadas en el trabajo
 estarán en disposición de todo aquel que quiera seguir avanzando con el tema en cuestión.
 
-\section{Conclusiones y trabajo futuro}
+\section{Conclusiones}
+
+En este proyecto, nos propusimos desarrollar un sistema de etiquetado automático para problemas de programación competitiva en la plataforma Codeforces utilizando técnicas de \textit{machine learning}. Para ello, empleamos diversos modelos, incluyendo \textit{k-Nearest Neighbors} (k-NN), Naive Bayes, ChatGPT 3.5 y un modelo basado en \textit{embeddings} de texto usando Transformers. A lo largo del desarrollo, enfrentamos varios desafíos, entre ellos la naturaleza multi-etiqueta del problema y la diversidad de los enunciados de los problemas.
+
+Nuestros resultados indican que, si bien los modelos implementados lograron etiquetar algunos problemas correctamente y los resultados son bastante superiores a los arrojados por ChatGPT 3.5, el rendimiento general no fue tan bueno como esperábamos. Las métricas de precisión, \textit{recall} y F1-score fueron más bajas de lo deseado, reflejando la dificultad del problema. En particular, encontramos que:
+
+\begin{itemize}
+    \item El modelo k-NN tuvo dificultades para manejar la alta dimensionalidad y diversidad de las características textuales.
+    \item Naive Bayes, aunque rápido y eficiente, no capturó adecuadamente las complejidades y variaciones en el lenguaje de los enunciados.
+    \item El modelo basado en \textit{embeddings} usando Transformers mostró cierta promesa, pero requiere más ajuste y optimización para mejorar su desempeño.
+\end{itemize}
+
+Las limitaciones encontradas sugieren que los modelos actuales no son suficientemente sofisticados para capturar la variedad de etiquetas y la complejidad lingüística de los problemas de Codeforces.
+
+\section{Trabajo Futuro}
+
+Dado que nuestros resultados actuales no alcanzaron el rendimiento esperado, proponemos las siguientes áreas de trabajo futuro para mejorar el sistema de etiquetado:
+
+\begin{enumerate}
+    \item \textbf{Aumento de Datos y Preprocesamiento}: Incrementar el volumen de datos de entrenamiento y aplicar técnicas de preprocesamiento más avanzadas para normalizar y limpiar los enunciados podría ayudar a mejorar el rendimiento de los modelos.
+    \item \textbf{Técnicas de Ensemble}: Utilizar técnicas de \textit{ensemble}, combinando varios modelos para aprovechar sus fortalezas individuales y mitigar sus debilidades, podría conducir a un etiquetado más preciso y robusto.
+    \item \textbf{Evaluación y Validación Continua}: Implementar un sistema de evaluación continua y validación cruzada para ajustar y optimizar los modelos de manera iterativa, asegurando una mejora constante en el rendimiento.
+    \item \textbf{Colaboración con la Comunidad}: Involucrar a la comunidad de usuarios de Codeforces para obtener retroalimentación y posiblemente etiquetar manualmente un conjunto de datos, que podría ser utilizado para refinar y validar los modelos.
+\end{enumerate}
+
+En conclusión, aunque nuestro sistema de etiquetado automático actual tiene limitaciones, este proyecto establece una base sólida para futuros desarrollos. Con más datos, modelos más avanzados y una validación continua, creemos que es posible mejorar significativamente la precisión y utilidad del etiquetado automático de problemas de programación competitiva.
+
 
 
 \end{document}
