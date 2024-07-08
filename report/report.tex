@@ -379,7 +379,7 @@ clf = OneVsRestClassifier(MultinomialNB())
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 \end{lstlisting}
-
+\newpage
 \subsubsection{Resultados}
 \begin{itemize}
     \item Informe de Clasificación
@@ -462,7 +462,7 @@ def prompt(description):
     \toprule
     {} & Metric        & ChatGPT  & Naive Bayes \\
     \midrule
-    0  & Accuracy      & 0.020000 & 0.146000    \\
+    0  & Accuracy      & 0.020000 & 0.144600    \\
     1  & F1 (macro)    & 0.002431 & 0.240000    \\
     2  & F1 (micro)    & 0.020000 & 0.390000    \\
     3  & F1 (weighted) & 0.017556 & 0.320000    \\
