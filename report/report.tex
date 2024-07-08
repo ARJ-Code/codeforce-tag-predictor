@@ -216,6 +216,75 @@ información puede ser útil para el futuro análisis empleando modelos de lengu
 
 \subsection{Preprocesamiento de datos}
 
+    En el preprocesamiento de datos, se realizaron varios pasos para 
+    limpiar y normalizar los textos de las descripciones y otros campos del 
+    conjunto de datos. A continuación, se describen las principales etapas 
+    y funciones utilizadas:
+
+    \begin{enumerate}
+        \item \textbf{Corrección de capitalización después de puntos}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{processing\_dot\_capitalize}
+            \item \textbf{Descripción:} Añade un espacio antes de una letra mayúscula si viene después de un punto, para corregir errores de capitalización en los textos.
+        \end{itemize}
+        \item \textbf{Reemplazo de notación exponencial}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{replace\_exponent\_notation}
+            \item \textbf{Descripción:} Convierte notaciones como $10^6$ a su equivalente numérico 1000000 usando expresiones regulares.
+        \end{itemize}
+        \item \textbf{Espaciado entre signos de dólar}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{add\_spacing\_between\_dollar\_signs}
+            \item \textbf{Descripción:} Añade espacios alrededor de los símbolos \$\$\$ para facilitar el procesamiento posterior.
+        \end{itemize}
+        \item \textbf{Conversión a minúsculas}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{convert\_to\_lowercase}
+            \item \textbf{Descripción:} Convierte todo el texto a minúsculas para una normalización uniforme.
+        \end{itemize}
+        \item \textbf{Cálculo de multiplicaciones en el texto}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{calculate\_multiplication}
+            \item \textbf{Descripción:} Evalúa y reemplaza expresiones de multiplicación como 2 \textbackslash cdot 100000 por su resultado 200000.
+        \end{itemize}
+        \item \textbf{Preprocesamiento general}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{preprocessing}
+            \item \textbf{Descripción:} Aplica todas las funciones anteriores secuencialmente para limpiar y normalizar el texto.
+        \end{itemize}
+        \item \textbf{Tokenización y lemmatización}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{split\_sentences, split\_words, lemmatization}
+            \item \textbf{Descripción:} Divide el texto en oraciones y palabras, y aplica lematización para reducir las palabras a su forma base.
+        \end{itemize}
+        \item \textbf{Eliminación de stopwords}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{remove\_stopwords}
+            \item \textbf{Descripción:} Elimina palabras comunes (stopwords) para reducir el ruido en los datos.
+        \end{itemize}
+        \item \textbf{Procesamiento de descripciones}
+        \begin{itemize}
+            \item \textbf{Función:} \texttt{get\_preprocessed\_sentence}
+            \item \textbf{Descripción:} Aplica todas las técnicas de preprocesamiento a cada descripción en el conjunto de datos.
+        \end{itemize}
+        \item \textbf{Procesamiento de límites de tiempo y memoria}
+        \begin{itemize}
+            \item \textbf{Descripción:} Convierte los límites de tiempo y memoria a formatos numéricos apropiados, eliminando unidades innecesarias y valores nulos.
+        \end{itemize}
+        \item \textbf{Eliminación de columnas innecesarias}
+        \begin{itemize}
+            \item \textbf{Descripción:} Se eliminan columnas no relevantes como \texttt{input\_file} y \texttt{output\_file} para simplificar el conjunto de datos.
+        \end{itemize}
+    \end{enumerate}
+
+    En resumen, el preprocesamiento de datos incluyó la normalización y 
+    limpieza del texto, lematización, eliminación de stopwords, procesamiento 
+    de signos de dólar, tokenización y el manejo de valores en columnas 
+    específicas como límites de tiempo y memoria. Estas transformaciones 
+    aseguraron que los datos estuvieran en un formato adecuado para ser 
+    utilizados en el modelo de clasificación.
+
+
 \section{Estado del arte}
 
 \subsection{Revisión bibliográfica}
@@ -248,6 +317,8 @@ papers estudiados.
               
               
               
+              
+              
                              & Long Short Term Memory (LSTM), Random Forest, dummy classifier 
                              & Only Random Forest outperformed the dummy classifier, which predicted the most popular class 
                              & Codeforces, considering only the first tag for each problem 
@@ -258,6 +329,8 @@ papers estudiados.
                              & 2019
                              & \href{https://aclanthology.org/D19-5511/}{\url{https://aclanthology.org/D19-5511/}}
 
+              
+              
               
               
               
@@ -274,6 +347,8 @@ papers estudiados.
               
               
               
+              
+              
                              & Long Short Term Memory (LSTM)
                              & Best F1 score by LSTM over one-hot encoding; best Weighted Hamming Score by LSTM over word2vec 
                              & Codeforces and TopCoder, tags sorted into 9 classes 
@@ -284,6 +359,8 @@ papers estudiados.
                              & 2019
                              & \href{https://dl.acm.org/doi/10.1145/3323771.3323795}{\url{https://dl.acm.org/doi/10.1145/3323771.3323795}}
 
+              
+              
               
               
               
@@ -319,6 +396,8 @@ papers estudiados.
               
               
               
+              
+              
                              & Traditional classification algorithms 
                              & Successful application of traditional classification algorithms and code metrics for classifying solutions 
                              & Codeforces 
@@ -333,6 +412,8 @@ papers estudiados.
               
               
               
+              
+              
                              & CNN character-wise 
                              & Managed to classify solutions into four classes; combining information from all submitted solutions improved classification 
                              & Codeforces 
@@ -341,20 +422,45 @@ papers estudiados.
               \hline
               
           \end{longtable}
-
-             
+          
+          
 \end{itemize}
 
 \section{Propuestas de solución}
-\begin{itemize}
-    \item Clasificación Multietiqueta con TF-IDF y Naive Bayes
-\end{itemize}
+\subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
+La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
+\subsection{Clasificación Multietiqueta con TF-IDF y KNN}
+Al igual que en la sección anterior, usaremos el enfoque de modelo de aprendizaje multietiquetas. La vectorización usada es la misma que en Naive-Bayes, TF-IDF para extraer características y un clasificador KNN para la clasificación. El objetivo poder comparar el rendimiento de este modelo con los otros que hemos usado.
+
+\subsection{Clasificación Multietiqueta usando Deep Learning}
+
+Durante el estudio del estado del arte notamos que un clasificador de algoritmos dado el texto 
+basado en CNN puede lograr un rendimiento casi humano. Sin embargo, estas las arquitecturas 
+presentadas no manejan eficazmente secuencias largas, que son comunes en las descripciones de 
+problemas de esta índole. Para abordar esta limitación, adoptamos arquitecturas recientes 
+basadas en transformers, que son más adecuadas para manejar secuencias largas. Nuestro método 
+aborda la clasificación de etiquetas múltiples, ya que cada problema de algoritmo puede 
+pertenecer a varias etiquetas simultáneamente.
+
+Para lograr esto se define una función $F$ como un extractor de features que convierte un 
+texto en un espacio de representaciones vectoriales (embeddings). Luego, utilizamos una cabeza 
+de clasificación $H$ sobre el extractor. Nuestro modelo resuelve el problema de la 
+clasificación de etiquetas múltiples usando una función de pérdida de entropía cruzada binaria:
+
+$$
+    E_{(x, y) \in D_{train}} [ l(H(F(x)), y) ]
+$$
+
+donde $l$ es una pérdida de entropía cruzada binaria para las categorías $y$ del problema $x$.
+
+Recolectamos en total 7968 problemas de algoritmos de CodeForces, con 37 etiquetas distintas. 
+Utilizamos un extractor de features basado en BERT y una red de cabeza de 
+clasificación. Usamos la arquitectura \href{https://huggingface.co/google/bigbird-roberta-base}{BigBird} 
+en nuestra modelación que nos permite introducir extensas secuencias de tokens.
 
 \section{Experimentación y resultados}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
-\subsubsection{Introducción}
-La clasificación multietiqueta es una variante de la clasificación en la que cada instancia puede pertenecer a múltiples clases simultáneamente. En este estudio, utilizamos la vectorización TF-IDF para la extracción de características y un clasificador Naive Bayes para la clasificación. El objetivo principal es evaluar el rendimiento del modelo en varias métricas de evaluación.
 \subsubsection{Metodología}
 \begin{itemize}
     \item Preprocesamiento de Datos
@@ -379,7 +485,7 @@ clf = OneVsRestClassifier(MultinomialNB())
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 \end{lstlisting}
-
+\newpage
 \subsubsection{Resultados}
 \begin{itemize}
     \item Informe de Clasificación
@@ -445,6 +551,156 @@ Se tiene un {\href{https://github.com/ARJ-Code/codeforce-tag-predictor/blob/main
     \label{fig:s}
 \end{figure}
 
+\subsection{Clasificación Multietiqueta con TF-IDF y KNN}
+\subsubsection{Metodología}
+\begin{itemize}
+    \item Preprocesamiento de Datos
+\end{itemize}
+además de preprocesar la descripción de los problemas para usar TF-IDF, al ser KNN un modelo que solo se puede entrenar con valores numéricos, también se binarizaron los tags de los problemas, y se eliminaron columnas poco relevantes como el idioma y la identificación de los problemas.
+
+\begin{itemize}
+    \item Entrenamiento del Modelo
+\end{itemize}
+La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20.\\ 
+Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100, dando como resultado que K = 12 era el valor con mayor precisión en los resultados.
+
+\begin{lstlisting}[language=Python, caption=KNN]
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    neighbors = np.arange(1, 100)
+    train_accuracies = {}
+    test_accuracies = {}
+    reports = []
+    for neighbor in neighbors:
+        knn = KNeighborsClassifier(n_neighbors=neighbor)
+        mlb_knn = MultiOutputClassifier(knn)
+        mlb_knn.fit(X_train, y_train)
+        ypred = mlb_knn.predict(X_test) 
+        train_accuracies[neighbor] = mlb_knn.score(X_train, y_train)
+        test_accuracies[neighbor] = mlb_knn.score(X_test, y_test)
+        reports.append(classification_report(y_test, ypred, zero_division = 0))
+    \end{lstlisting}
+
+\subsubsection{Resultados}
+\begin{itemize}
+    \item Informe de Clasificación
+\end{itemize}
+
+\begin{verbatim}
+report = classification_report(y_test, y_pred, target_names=list(all_tags))
+\end{verbatim}
+
+\begin{tabular}{lrrrr}
+    \toprule
+                           & precision & recall   & f1-score & support    \\
+    \midrule
+    math                   & 0.410256  & 0.163265 & 0.233577 & 98.000000  \\
+    strings                & 0.555556  & 0.500000 & 0.526316 & 30.000000  \\
+    datastructures         & 0.900000  & 0.209302 & 0.339623 & 43.000000  \\
+    greedy                 & 0.500000  & 0.350000 & 0.411765 & 100.000000 \\
+    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 10.000000  \\
+    constructivealgorithms & 0.100000  & 0.017544 & 0.029851 & 57.000000  \\
+    implementation         & 0.602740  & 0.325926 & 0.423077 & 135.000000 \\
+    geometry               & 1.000000  & 0.062500 & 0.117647 & 16.000000  \\
+    bruteforce             & 0.500000  & 0.015152 & 0.029412 & 66.000000  \\
+    dp                     & 0.000000  & 0.000000 & 0.000000 & 47.000000  \\
+    \bottomrule
+\end{tabular}
+
+\begin{itemize}
+    \item Accuracy
+\end{itemize}
+\begin{verbatim}
+Overall Accuracy: 8.00\%
+\end{verbatim}
+
+\newpage
+\begin{itemize}
+    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/precisonknn.png}
+    \caption{Precision}
+    \label{fig:p}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/f1knn.png}
+    \caption{F1-Score}
+    \label{fig:f1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/recallknn.png}
+    \caption{Recall}
+    \label{fig:r}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.49]{imgs/supportkn.png}
+    \caption{Support}
+    \label{fig:s}
+\end{figure}
+
+\subsection{Clasificación Multietiqueta usando Deep Learning}
+
+    A pesar de haber recolectado un dataset de problemas tan extenso, por cuestiones de 
+    rapidez en el cómputo decidimos solo usar 1625 de ellos, la mitad 
+    del total teniendo en cuenta únicamente los problemas que solo están 
+    tagueados con las etiquetas más comunes. En nuestros experimentos, evaluamos varias configuraciones 
+    iniciales para el entrenamiento del modelo de clasificación de texto con el objetivo de 
+    validar la efectividad de nuestro conjunto de datos propuesto. Sin embargo, no nos fue posible 
+    concluirlo, pudiendo completar solo el 25\% de las epochs previstas. Estos fueron los resultados 
+    alcanzados en el último checkpoint de nuestro modelo:
+
+    \begin{tabular}{lrrrr}
+        \toprule
+        {}                      & auc-roc  \\
+        \midrule
+        brute force             & 0.53433  \\
+        constructiv ealgorithms & 0.60461  \\
+        data structures         & 0.55745  \\
+        dfs and similar         & 0.39719  \\
+        dp                      & 0.53294  \\
+        geometry                & 0.64132  \\
+        greedy                  & 0.62073  \\
+        implementation          & 0.60420  \\
+        math                    & 0.65266  \\
+        strings                 & 0.67921  \\
+        \bottomrule
+    \end{tabular}
+
+    \begin{itemize}
+        \item \textbf{ROC-AUC Score = $0.5824715558064865$}: Esta métrica indica que, en promedio, el modelo tiene una 
+        capacidad moderada para distinguir entre las clases. Un valor de 0.5 sugiere que el modelo 
+        no tiene mejor rendimiento que una clasificación aleatoria, mientras que un valor de 1 
+        indica una clasificación perfecta. Por lo tanto, un AUC-ROC de aproximadamente 0.582 sugiere 
+        que hay margen para mejorar el modelo. AUC-ROC  es el Área Bajo la Curva del Receptor Operador 
+        Característico.
+        \item \textbf{F1 Score = $0.3080225264908538$}: El F1 score combina precisión y recall en una 
+        sola métrica. Un valor de 0.308 indica que el modelo tiene un rendimiento bajo en términos de 
+        equilibrio entre estos dos aspectos. Nuevamente, esto sugiere que hay espacio para mejoras.
+        \item \textbf{Umbral de decisión = $0.001$}: Este valor indica el umbral utilizado para convertir las 
+        probabilidades de las etiquetas en predicciones binarias. Un umbral tan bajo podría estar 
+        indicando que el modelo está tratando de ser muy inclusivo (es decir, prefiere clasificar 
+        algo como positivo con una probabilidad muy baja), lo cual evidentemente está afectando la 
+        precisión de las predicciones.
+    \end{itemize}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.55]{imgs/roc_auc.jpg}
+        \caption{Tags ROC-AUC}
+    \end{figure}
+
+    Dado el rendimiento moderado en AUC-ROC y bajo en F1 score, además de la variabilidad notable en 
+    el rendimiento del modelo entre diferentes etiquetas se podría explorar mejorar el 
+    preprocesamiento de datos, el ajuste de hiperparámetros del modelo, o incluso el uso de técnicas 
+    de balanceo de clases para obtener mejores métricas.
+
+
 \subsection{Chat GPT}
 
 Para analizar que tan bien se comportaba Chat GPT 3.5, prediciendo los tags de Codeforces, usamos prompt engineering
@@ -456,17 +712,15 @@ def prompt(description):
     return f'Give this set of {all_tags_str} tags and this problem ${description}, give me the set of problem tags in the following format: greedy, implementation, dp'
 \end{lstlisting}
 
-\subsubsection{Resultados y comparación con el resto de modelos}
-
-\begin{tabular}{llrr}
+\begin{tabular}{|l|l|r|r|r|}
     \toprule
-    {} & Metric        & ChatGPT  & Naive Bayes \\
+    {} & Metric        & ChatGPT  & Naive Bayes & KNN      \\
     \midrule
-    0  & Accuracy      & 0.020000 & 0.146000    \\
-    1  & F1 (macro)    & 0.002431 & 0.240000    \\
-    2  & F1 (micro)    & 0.020000 & 0.390000    \\
-    3  & F1 (weighted) & 0.017556 & 0.320000    \\
-    4  & F1 (samples)  & 0.002431 & 0.390000    \\
+    0  & Accuracy      & 0.020000 & 0.146000    & 0.080000 \\
+    1  & F1 (macro)    & 0.002431 & 0.240000    & 0.210000 \\
+    2  & F1 (micro)    & 0.020000 & 0.390000    & 0.290000 \\
+    3  & F1 (weighted) & 0.017556 & 0.320000    & 0.260000 \\
+    4  & F1 (samples)  & 0.002431 & 0.390000    & 0.240000 \\
     \bottomrule
 \end{tabular}
 
@@ -478,9 +732,36 @@ lo que en alguna medida demuestra que el modelo en alguno o la mayoría de los c
 de lenguaje.
 
 \section{Discusión de los resultados}
-Debe incluir la repercusión ética de las soluciones.
+Primeramente señalar que como repercusión ética este trabajo puede ser maliciosamente utilizado en concursos online de 
+programación competitiva, donde se tiene tolerancia cero al fraude tagueando los problemas 
+y de esta manera saber con que idea atacar, aunque cabe destacar que los problemas usualmente no son tan triviales. También positivamente este trabajo es una excelente forma de que en la preparación individual en vista a competencias se pueda utilizar para solo concentrarse en problemas que tengan una etiqueta específica, además creemos que los modelos están abiertos a problemas no solo del propio codeforces, sino de otras plataformas de programación competitiva. Las ideas abordadas en el trabajo
+estarán en disposición de todo aquel que quiera seguir avanzando con el tema en cuestión.
 
-\section{Conclusiones y trabajo futuro}
+\section{Conclusiones}
 
+En este proyecto, nos propusimos desarrollar un sistema de etiquetado automático para problemas de programación competitiva en la plataforma Codeforces utilizando técnicas de \textit{machine learning}. Para ello, empleamos diversos modelos, incluyendo \textit{k-Nearest Neighbors} (k-NN), Naive Bayes, ChatGPT 3.5 y un modelo basado en \textit{embeddings} de texto usando Transformers. A lo largo del desarrollo, enfrentamos varios desafíos, entre ellos la naturaleza multi-etiqueta del problema y la diversidad de los enunciados de los problemas.
+
+Nuestros resultados indican que, si bien los modelos implementados lograron etiquetar algunos problemas correctamente y los resultados son bastante superiores a los arrojados por ChatGPT 3.5, el rendimiento general no fue tan bueno como esperábamos. Las métricas de precisión, \textit{recall} y F1-score fueron más bajas de lo deseado, reflejando la dificultad del problema. En particular, encontramos que:
+
+\begin{itemize}
+    \item El modelo k-NN tuvo dificultades para manejar la alta dimensionalidad y diversidad de las características textuales.
+    \item Naive Bayes, aunque rápido y eficiente, no capturó adecuadamente las complejidades y variaciones en el lenguaje de los enunciados.
+    \item El modelo basado en \textit{embeddings} usando Transformers mostró cierta promesa, pero requiere más ajuste y optimización para mejorar su desempeño.
+\end{itemize}
+
+Las limitaciones encontradas sugieren que los modelos actuales no son suficientemente sofisticados para capturar la variedad de etiquetas y la complejidad lingüística de los problemas de Codeforces.
+
+\section{Trabajo Futuro}
+
+Dado que nuestros resultados actuales no alcanzaron el rendimiento esperado, proponemos las siguientes áreas de trabajo futuro para mejorar el sistema de etiquetado:
+
+\begin{enumerate}
+    \item \textbf{Aumento de Datos y Preprocesamiento}: Incrementar el volumen de datos de entrenamiento y aplicar técnicas de preprocesamiento más avanzadas para normalizar y limpiar los enunciados podría ayudar a mejorar el rendimiento de los modelos.
+    \item \textbf{Técnicas de Ensemble}: Utilizar técnicas de \textit{ensemble}, combinando varios modelos para aprovechar sus fortalezas individuales y mitigar sus debilidades, podría conducir a un etiquetado más preciso y robusto.
+    \item \textbf{Evaluación y Validación Continua}: Implementar un sistema de evaluación continua y validación cruzada para ajustar y optimizar los modelos de manera iterativa, asegurando una mejora constante en el rendimiento.
+    \item \textbf{Colaboración con la Comunidad}: Involucrar a la comunidad de usuarios de Codeforces para obtener retroalimentación y posiblemente etiquetar manualmente un conjunto de datos, que podría ser utilizado para refinar y validar los modelos.
+\end{enumerate}
+
+En conclusión, aunque nuestro sistema de etiquetado automático actual tiene limitaciones, este proyecto establece una base sólida para futuros desarrollos. Con más datos, modelos más avanzados y una validación continua, creemos que es posible mejorar significativamente la precisión y utilidad del etiquetado automático de problemas de programación competitiva.
 
 \end{document}
