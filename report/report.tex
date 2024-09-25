@@ -638,7 +638,7 @@ Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.55]{imgs/roc_auc_knn.jpg}
+    \includegraphics[scale=0.55]{imgs/roc_auc_knn.png}
     \caption{Etiquetas ROC-AUC}
 \end{figure}
 
@@ -660,7 +660,7 @@ alcanzados en el último checkpoint de nuestro modelo:
     {}                      & auc-roc \\
     \midrule
     brute force             & 0.53433 \\
-    constructiv ealgorithms & 0.60461 \\
+    constructive algorithms & 0.60461 \\
     data structures         & 0.55745 \\
     dfs and similar         & 0.39719 \\
     dp                      & 0.53294 \\
@@ -722,7 +722,7 @@ def prompt(description):
     3  & F1 (weighted) & 0.017556 & 0.320000    & 0.260000 & 0.3973457965486768  \\
     4  & F1 (samples)  & 0.002431 & 0.390000    & 0.240000 & 0.4023785103785104  \\
     \bottomrule
-\end{tabular}
+\end{tabular}\\\\
 
 En el resto de los modelos comparados se obtuvieron mejores métricas en general, también vale destacar que no nos fue posible
 usar ChatGPT 4o, modelo de mayor complejidad con le que esperamos que se comporte mejor, además de que solo nos fue posible 
