@@ -582,88 +582,67 @@ además de preprocesar la descripción de los problemas para usar TF-IDF, al ser
 \begin{itemize}
     \item Entrenamiento del Modelo
 \end{itemize}
-La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20.\\ 
-Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100, dando como resultado que K = 12 era el valor con mayor precisión en los resultados.
+La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento, validación y prueba utilizando una división 60-20-20.\\ 
+Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100 sobre el conjunto de validación, dando como resultado que K = 8 era el valor con mayor precisión en los resultados.
 
 \begin{lstlisting}[language=Python, caption=KNN]
-    
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
+        
     neighbors = np.arange(1, 100)
-    train_accuracies = {}
-    test_accuracies = {}
     reports = []
     for neighbor in neighbors:
         knn = KNeighborsClassifier(n_neighbors=neighbor)
         mlb_knn = MultiOutputClassifier(knn)
         mlb_knn.fit(X_train, y_train)
-        ypred = mlb_knn.predict(X_test) 
-        train_accuracies[neighbor] = mlb_knn.score(X_train, y_train)
-        test_accuracies[neighbor] = mlb_knn.score(X_test, y_test)
-        reports.append(classification_report(y_test, ypred, zero_division = 0))
+        ypred = mlb_knn.predict(X_validation) 
+        reports.append(classification_report(y_validation, ypred, zero_division = 0))
     \end{lstlisting}
 
 \subsubsection{Resultados}
-\begin{itemize}
-    \item Informe de Clasificación
-\end{itemize}
-
-\begin{verbatim}
-report = classification_report(y_test, y_pred, target_names=list(all_tags))
-\end{verbatim}
 
 \begin{tabular}{lrrrr}
     \toprule
-                           & precision & recall   & f1-score & support    \\
+    {}                      & auc-roc \\
     \midrule
-    math                   & 0.410256  & 0.163265 & 0.233577 & 98.000000  \\
-    strings                & 0.555556  & 0.500000 & 0.526316 & 30.000000  \\
-    datastructures         & 0.900000  & 0.209302 & 0.339623 & 43.000000  \\
-    greedy                 & 0.500000  & 0.350000 & 0.411765 & 100.000000 \\
-    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 10.000000  \\
-    constructivealgorithms & 0.100000  & 0.017544 & 0.029851 & 57.000000  \\
-    implementation         & 0.602740  & 0.325926 & 0.423077 & 135.000000 \\
-    geometry               & 1.000000  & 0.062500 & 0.117647 & 16.000000  \\
-    bruteforce             & 0.500000  & 0.015152 & 0.029412 & 66.000000  \\
-    dp                     & 0.000000  & 0.000000 & 0.000000 & 47.000000  \\
+    brute force             & 0.51701 \\
+    constructiv ealgorithms & 0.54449 \\
+    data structures         & 0.60976 \\
+    dfs and similar         & 0.50000 \\
+    dp                      & 0.50000 \\
+    geometry                & 0.50000 \\
+    greedy                  & 0.54201 \\
+    implementation          & 0.57758 \\
+    math                    & 0.52466 \\
+    strings                 & 0.73744 \\
     \bottomrule
 \end{tabular}
 
-\begin{itemize}
-    \item Accuracy
-\end{itemize}
-\begin{verbatim}
-Overall Accuracy: 8.00\%
-\end{verbatim}
+\vspace{0.5cm}
 
-\newpage
+\textbf{ROC AUC Scores}: El valor ideal para ROC AUC es 1, mientras que un valor de 0.5 sugiere que el modelo no está mejor que el azar.
+
 \begin{itemize}
-    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
+    \item \textbf{bruteforce}: 0.517 $\rightarrow$ Desempeño cercano al azar, pero ligeramente mejor.
+    \item \textbf{greedy}: 0.542 $\rightarrow$ Ligeramente mejor que el azar, aunque lejos de ser excelente.
+    \item \textbf{math}: 0.524 $\rightarrow$ Similar al azar, muestra poca capacidad del modelo para predecir correctamente.
+    \item \textbf{datastructures}: 0.610 $\rightarrow$ Este es el primer puntaje que indica una mejora apreciable sobre el azar, sugiriendo que el modelo tiene mejor capacidad de clasificación en esta etiqueta.
+    \item \textbf{implementation}: 0.577 $\rightarrow$ Un desempeño aceptable, pero aún limitado.
+    \item \textbf{strings}: 0.737 $\rightarrow$ Buen desempeño, el modelo parece funcionar bastante bien en problemas de tipo ``strings''.
+    \item \textbf{dp, geometry, dfsandsimilar}: 0.5 $\rightarrow$ Desempeño similar al azar, sin capacidad de predicción en estas categorías.
+    \item \textbf{constructivealgorithms}: 0.544 $\rightarrow$ Ligeramente mejor que el azar.
 \end{itemize}
+
+\textbf {ROC AUC Score (0.55529)}: Un ROC AUC Score de 0.555 indica que el modelo tiene un desempeño apenas mejor que el azar (0.5), pero muy lejos de ser un buen clasificador. Aunque hay una ligera capacidad de discriminación entre las clases, es bastante limitada y sugiere que el modelo no está capturando adecuadamente las características de los datos para predecir con precisión.\\
+
+\textbf{F1 Score (0.208)}: Un F1 Score bajo sugiere que el modelo está teniendo problemas para balancear la precisión y el \textit{recall}, lo que implica que la clasificación en general está lejos de ser efectiva.
+
+
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.49]{imgs/precisonknn.png}
-    \caption{Precision}
-    \label{fig:p}
+    \includegraphics[scale=0.55]{imgs/roc_auc_knn.jpg}
+    \caption{Etiquetas ROC-AUC}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/f1knn.png}
-    \caption{F1-Score}
-    \label{fig:f1}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/recallknn.png}
-    \caption{Recall}
-    \label{fig:r}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/supportkn.png}
-    \caption{Support}
-    \label{fig:s}
-\end{figure}
+
+El modelo tiene un desempeño moderado en etiquetas como "datastructures" y "strings", pero lucha considerablemente con otras como "dp", "geometry", y "dfsandsimilar", donde su capacidad predictiva es casi nula.
 
 \subsection{Clasificación Multietiqueta usando Deep Learning}
 
