@@ -471,7 +471,7 @@ El conjunto de datos preprocesado pasa a utilizar la vectorización TF-IDF para 
     \item Entrenamiento del Modelo
 \end{itemize}
 La clasificación se realizó utilizando un clasificador Naive Bayes dentro de un marco One-vs-Rest. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20. Una vez el modelo predecía habían problemas a los cuales no se les
-asignaba ninguna etiqueta, cosa que no sucede en el codeforces, por lo cual se le hace asignar a dichos problemas la etiqueta más probable, garantizando así que todo problema contenga al menos una etiqueta.
+asignaba ninguna etiqueta, cosa que no sucede en el codeforces, por lo cual se prueba adem\'as asignar a dichos problemas la etiqueta más probable, garantizando así que todo problema contenga al menos una etiqueta.
 
 \begin{lstlisting}[language=Python, caption=Naive Bayes]
 vectorizer = TfidfVectorizer()
@@ -485,67 +485,83 @@ clf = OneVsRestClassifier(MultinomialNB())
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 \end{lstlisting}
-\newpage
+
 \subsubsection{Resultados}
-\begin{itemize}
-    \item Informe de Clasificación
-\end{itemize}
-\begin{lstlisting}[language=Python, caption=Informe de Clasificación]
-    classification_report(y_test, y_pred, target_names=mlb.classes_)
-\end{lstlisting}
+\begin{table}[ht!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{lr}
+            \toprule
+            {}                      & auc-roc  \\
+            \midrule
+            brute force             & 0.50440  \\
+            constructive algorithms & 0.50000  \\
+            data structures         & 0.51020  \\
+            dfs and similar         & 0.50000  \\
+            dp                      & 0.50000  \\
+            geometry                & 0.52941  \\
+            greedy                  & 0.59057  \\
+            implementation          & 0.62189  \\
+            math                    & 0.52669  \\
+            strings                 & 0.62795  \\
+            \bottomrule
+        \end{tabular}
+        \caption{ROC-AUC Scores}
+    \end{minipage}%
+    \hspace{0.05\textwidth} % Espacio entre tablas
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{lr}
+            \toprule
+            {}                      & auc-roc  \\
+            \midrule
+            brute force             & 0.50062  \\
+            constructive algorithms & 0.50486  \\
+            data structures         & 0.52040  \\
+            dfs and similar         & 0.50000  \\
+            dp                      & 0.50000  \\
+            geometry                & 0.58823  \\
+            greedy                  & 0.60907  \\
+            implementation          & 0.59370  \\
+            math                    & 0.60561  \\
+            strings                 & 0.68182  \\
+            \bottomrule
+        \end{tabular}
+        \caption{ROC-AUC Scores (Al menos una etiqueta por problema)}
+    \end{minipage}
+\end{table}
+\newpage
 
-\begin{tabular}{lrrrr}
-    \toprule
-    {}                     & precision & recall   & f1-score & support \\
-    \midrule
-    bruteforce             & 0.200000  & 0.016393 & 0.030303 & 61.0    \\
-    constructivealgorithms & 0.500000  & 0.013699 & 0.026667 & 73.0    \\
-    datastructures         & 1.000000  & 0.040816 & 0.078431 & 49.0    \\
-    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 4.0     \\
-    dp                     & 0.000000  & 0.000000 & 0.000000 & 50.0    \\
-    geometry               & 1.000000  & 0.176471 & 0.300000 & 17.0    \\
-    greedy                 & 0.522727  & 0.414414 & 0.462312 & 111.0   \\
-    implementation         & 0.515789  & 0.690141 & 0.590361 & 142.0   \\
-    math                   & 0.630435  & 0.287129 & 0.394558 & 101.0   \\
-    strings                & 0.833333  & 0.370370 & 0.512821 & 27.0    \\
-    \bottomrule
-\end{tabular}
-
 \begin{itemize}
-    \item Accuracy
+    \item F1 Score:
 \end{itemize}
 \begin{verbatim}
-Overall Accuracy: 14.46\%
+F1 Score: 0.16300
+F1 Score (Al menos un tag por problema): 0.23954
 \end{verbatim}
+\begin{itemize}
+    \item ROC-AUC Score:
+\end{itemize}
+\begin{verbatim}
+ROC-AUC Score: 0.54111
+ROC-AUC Score (Al menos un tag por problema): 0.56043
+\end{verbatim}
+\begin{itemize}
+    \item Umbral de Decisi\'on usado (Ambos Casos):
+\end{itemize}
+\begin{verbatim}
+Umbral de Decisión: 0.5
+\end{verbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{imgs/roc\_auc\_nb.png}
+    \caption{Tags ROC-AUC}
+    \label{fig:ranb}
+\end{figure}
+Como se pude apreciar el agregarle la etiqueta mas probable a aquellos problemas que no les fueron asignados por el modelo ninguna etiqueta hace una mejora en los resultados obtenidos en casi todas las métricas usadas, solo las etiqueta brute force  e implementation obtienen un mejor valor en roc-auc sin hacer esto, lo cual está dado a que aquellos problemas sin etiquetar se le haya asignado su etiqueta incorrectamente .\\\newline
 
 \newpage
-\begin{itemize}
-    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
-\end{itemize}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/precisonnb.png}
-    \caption{Precision}
-    \label{fig:p}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/f1nb.png}
-    \caption{F1-Score}
-    \label{fig:f1}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/recallnb.png}
-    \caption{Recall}
-    \label{fig:r}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/supportnb.png}
-    \caption{Support}
-    \label{fig:s}
-\end{figure}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y KNN}
 \subsubsection{Metodología}
@@ -656,7 +672,7 @@ Overall Accuracy: 8.00\%
         {}                      & auc-roc  \\
         \midrule
         brute force             & 0.53433  \\
-        constructiv ealgorithms & 0.60461  \\
+        constructive algorithms & 0.60461  \\
         data structures         & 0.55745  \\
         dfs and similar         & 0.39719  \\
         dp                      & 0.53294  \\
