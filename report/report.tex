@@ -305,7 +305,7 @@ papers estudiados.
           
           \begin{longtable}{|p{2cm}|p{0.8cm}|p{2cm}|p{2cm}|p{3cm}|p{2cm}|p{3cm}|}
               \hline
-              \textbf{Paper} & \textbf{Year}                                                                                                                                                       & \textbf{Link} & \textbf{Models} & \textbf{Results} & \textbf{Dataset} & \textbf{Methods} \\
+              \textbf{Paper} & \textbf{Año}                                                                                                                                                       & \textbf{Link} & \textbf{Modelos} & \textbf{Resultados} & \textbf{Dataset} & \textbf{Métodos} \\
               \hline
               \endfirsthead
               
@@ -325,11 +325,10 @@ papers estudiados.
               
               
               
-              
-                             & Long Short Term Memory (LSTM), Random Forest, dummy classifier 
-                             & Only Random Forest outperformed the dummy classifier, which predicted the most popular class 
-                             & Codeforces, considering only the first tag for each problem 
-                             & Pre-trained word2vec vectors and one-hot encoding for input data representation                                                                                                                                                                                \\
+                             & Long Short Term Memory (LSTM), Random Forest, clasificador dummy
+                             & Solamente Random Forest presentó mejoras sobre el clasificador dummy, el cual predijo el tag más común
+                             & Codeforces, considerando solo el primer tag para cada problema
+                             & Vectores word2vec pre entrenado y codificación one-hot para representar la entrada de datos                                                                                                                                                                             \\
               
               \hline
               Predicting algorithm classes for programming word problems
@@ -341,11 +340,10 @@ papers estudiados.
               
               
               
-              
-                             & Convolutional Neural Networks (CNN), ensemble of CNNs, human predictors 
-                             & Best results by ensemble of CNNs; human predictors had better results than the best model but with an F1-macro score of 0.43 on top-20 multi-label classification 
-                             & Codeforces, predicting 10 and 20 most frequent tags 
-                             & Multi-class and multi-label classification approaches for tag prediction                                                                                                                                                                                       \\
+                             & Convolutional Neural Networks (CNN), ensemble de CNNs, predicciones humanas
+                             & Mejores resultados para el ensemble de CNNs; las predicciones humanas tuvieron mejores resultados que el resto de los modelos pero con una puntuación de 0.43 del macro-F1 en la clasificación multietiqueta de los primeros 20 
+                             & Codeforces, prediciendo 10 y 20 de los tags más frequentes
+                             & Acercamientos de clasificación mulitclase y multietiqueta para la predicción de los tags                                                                                                                                                                       \\
               
               \hline
               Multi-label classification for automatic tag prediction in the context of programming challenges
@@ -359,9 +357,9 @@ papers estudiados.
               
               
                              & Long Short Term Memory (LSTM)
-                             & Best F1 score by LSTM over one-hot encoding; best Weighted Hamming Score by LSTM over word2vec 
-                             & Codeforces and TopCoder, tags sorted into 9 classes 
-                             & Doc2Vec, LSTM over word2vec, LSTM over one-hot encoding                                                                                                                                                                                                        \\
+                             & Mejor puntuación F1 para LSTM sobre la codificación one-hot; mejor Weighted Hamming Score para LSTM sobre word2vec
+                             & Codeforces y TopCoder, tags ordenados en 9 clases
+                             & Doc2Vec, LSTM sobre word2vec, LSTM sobre codificación one-hot                                                                                                                                                                                                \\
               
               \hline
               Classification of Programming Problems based on Topic Modeling
@@ -375,9 +373,9 @@ papers estudiados.
               
               
                              & k-Nearest Neighbors (kNN), Random Forest (RF), Multinomial Naive Bayes (MNB), Multilayer Perceptron (MLP) 
-                             & Final accuracy did not improve much compared to TF-IDF baseline (0.86 vs 0.88 accuracy); positive impact on kNN and MNB, negative on RF 
+                             & La precisión final no mejoró mucho en comparación con la línea de base de TF-IDF (0,86 frente a 0,88 de precisión); impacto positivo en kNN y MNB, negativo en RF 
                              & 
-                             & Topic modeling (LDA, NMF) for vectorization; classification algorithms: kNN, RF, MNB, MLP                                                                                                                                                                      \\
+                             & Modelado de temas (LDA, NMF) para vectorización; algoritmos de clasificación: kNN, RF, MNB, MLP                                                                                                                                                                      \\
               
               \hline
               
@@ -387,7 +385,7 @@ papers estudiados.
           
           \begin{longtable}{|p{2cm}|p{0.8cm}|p{2cm}|p{2cm}|p{3cm}|p{2cm}|p{3cm}|}
               \hline
-              \textbf{Paper} & \textbf{Year}                                                                                                                                                                                                                                                                                               & \textbf{Link} & \textbf{Models} & \textbf{Results} & \textbf{Dataset} & \textbf{Methods} \\
+              \textbf{Paper} & \textbf{Año}                                                                                                                                                                                                                                                                                               & \textbf{Link} & \textbf{Modelos} & \textbf{Resultados} & \textbf{Dataset} & \textbf{Métodos} \\
               \hline
               \endfirsthead
               
@@ -408,11 +406,10 @@ papers estudiados.
               
               
               
-              
-                             & Traditional classification algorithms 
-                             & Successful application of traditional classification algorithms and code metrics for classifying solutions 
+                             & Algoritmos de clasificación tradicionales
+                             & Aplicación exitosa de algoritmos de clasificación tradicionales y métricas de código para clasificar soluciones
                              & Codeforces 
-                             & Metric-based approach to source code vectorization; 30 different software metrics (e.g., number of variables of specific types, lines of code, number of loops, number of nested loops)                                                                                                                                                                                                                \\
+                             & Enfoque basado en métricas para la vectorización del código fuente; 30 métricas de software diferentes (por ejemplo, número de variables de tipos específicos, líneas de código, número de bucles, número de bucles anidados)                                                                                                                                                                                                                \\
               
               \hline
               Classification and recommendation of competitive programming problems
@@ -425,11 +422,10 @@ papers estudiados.
               
               
               
-              
-                             & CNN character-wise 
-                             & Managed to classify solutions into four classes; combining information from all submitted solutions improved classification 
+                             & CNN a nivel de caracteres
+                             & Logró clasificar las soluciones en cuatro clases; Combinación de información de todas las soluciones presentadas: clasificación mejorada 
                              & Codeforces 
-                             & Character-wise CNN; proposed combining information from classifications of individual solutions                                                                                                                                                                                                                                                                                                        \\
+                             & CNN a nivel de caracteres; propuso combinar la información de las clasificaciones de las soluciones individuales                                                                                                                                                                                                                                                                                                       \\
               
               \hline
               
@@ -469,7 +465,7 @@ Recolectamos en total 7968 problemas de algoritmos de CodeForces, con 37 etiquet
 Utilizamos un extractor de features basado en BERT y una red de cabeza de 
 clasificación. Usamos la arquitectura \href{https://huggingface.co/google/bigbird-roberta-base}{BigBird}
 en nuestra modelación que nos permite introducir extensas secuencias de tokens.
-
+\newpage
 \section{Experimentación y resultados}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
@@ -497,67 +493,84 @@ clf = OneVsRestClassifier(MultinomialNB())
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 \end{lstlisting}
-\newpage
+
 \subsubsection{Resultados}
-\begin{itemize}
-    \item Informe de Clasificación
-\end{itemize}
-\begin{lstlisting}[language=Python, caption=Informe de Clasificación]
-    classification_report(y_test, y_pred, target_names=mlb.classes_)
-\end{lstlisting}
+\begin{table}[ht!]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{lr}
+            \toprule
+            {}                      & auc-roc  \\
+            \midrule
+            brute force             & 0.50440  \\
+            constructive algorithms & 0.50000  \\
+            data structures         & 0.51020  \\
+            dfs and similar         & 0.50000  \\
+            dp                      & 0.50000  \\
+            geometry                & 0.52941  \\
+            greedy                  & 0.59057  \\
+            implementation          & 0.62189  \\
+            math                    & 0.52669  \\
+            strings                 & 0.62795  \\
+            \bottomrule
+        \end{tabular}
+        \caption{ROC-AUC Scores}
+	\label{ras}
+    \end{minipage}%
+    \hspace{0.05\textwidth} % Espacio entre tablas
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{lr}
+            \toprule
+            {}                      & auc-roc  \\
+            \midrule
+            brute force             & 0.50062  \\
+            constructive algorithms & 0.50486  \\
+            data structures         & 0.52040  \\
+            dfs and similar         & 0.50000  \\
+            dp                      & 0.50000  \\
+            geometry                & 0.58823  \\
+            greedy                  & 0.60907  \\
+            implementation          & 0.59370  \\
+            math                    & 0.60561  \\
+            strings                 & 0.68182  \\
+            \bottomrule
+        \end{tabular}
+        \caption{ROC-AUC Scores (Al menos una etiqueta por problema)}
+	\label{rasc}
+    \end{minipage}
+\end{table}
+\newpage
 
-\begin{tabular}{lrrrr}
-    \toprule
-    {}                     & precision & recall   & f1-score & support \\
-    \midrule
-    bruteforce             & 0.200000  & 0.016393 & 0.030303 & 61.0    \\
-    constructivealgorithms & 0.500000  & 0.013699 & 0.026667 & 73.0    \\
-    datastructures         & 1.000000  & 0.040816 & 0.078431 & 49.0    \\
-    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 4.0     \\
-    dp                     & 0.000000  & 0.000000 & 0.000000 & 50.0    \\
-    geometry               & 1.000000  & 0.176471 & 0.300000 & 17.0    \\
-    greedy                 & 0.522727  & 0.414414 & 0.462312 & 111.0   \\
-    implementation         & 0.515789  & 0.690141 & 0.590361 & 142.0   \\
-    math                   & 0.630435  & 0.287129 & 0.394558 & 101.0   \\
-    strings                & 0.833333  & 0.370370 & 0.512821 & 27.0    \\
-    \bottomrule
-\end{tabular}
-
 \begin{itemize}
-    \item Accuracy
+    \item F1 Score:
 \end{itemize}
 \begin{verbatim}
-Overall Accuracy: 14.46\%
+F1 Score: 0.16300
+F1 Score (Al menos una etiqueta por problema): 0.23954
 \end{verbatim}
+\begin{itemize}
+    \item ROC-AUC Score:
+\end{itemize}
+\begin{verbatim}
+ROC-AUC Score: 0.54111
+ROC-AUC Score (Al menos una etiqueta por problema): 0.56043
+\end{verbatim}
+\begin{itemize}
+    \item Umbral de Decisi\'on usado (Ambos Casos):
+\end{itemize}
+\begin{verbatim}
+Umbral de Decisión: 0.5
+\end{verbatim}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{imgs/roc\_auc\_nb.png}
+    \caption{Etiquetas ROC-AUC}\label{fig:ranb}
+\end{figure}
+Como se pude apreciar en el Cuadro \ref{ras} y Cuadro \ref{rasc} el agregarle la etiqueta más probable a aquellos problemas que no les fueron asignados por el modelo ninguna etiqueta hace una mejora en los resultados obtenidos en casi todas las métricas usadas, solo las etiqueta brute force  e implementation obtienen un mejor valor en roc-auc sin hacer esto, lo cual está dado a que aquellos problemas sin etiquetar se le haya asignado su etiqueta incorrectamente. Con respecto a la Figura  \ref{fig:ranb} podemos apreciar las curvas por encima de la diagonal, esta última que representa el azar ,lo que nos sugiere que nuestro modelo es capaz de predecir con un cierta confianza de que sea cierto.
 
 \newpage
-\begin{itemize}
-    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
-\end{itemize}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/precisonnb.png}
-    \caption{Precision}
-    \label{fig:p}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/f1nb.png}
-    \caption{F1-Score}
-    \label{fig:f1}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/recallnb.png}
-    \caption{Recall}
-    \label{fig:r}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/supportnb.png}
-    \caption{Support}
-    \label{fig:s}
-\end{figure}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y KNN}
 \subsubsection{Metodología}
@@ -569,88 +582,67 @@ además de preprocesar la descripción de los problemas para usar TF-IDF, al ser
 \begin{itemize}
     \item Entrenamiento del Modelo
 \end{itemize}
-La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento y prueba utilizando una división 80-20.\\ 
-Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100, dando como resultado que K = 12 era el valor con mayor precisión en los resultados.
+La clasificación se realizó utilizando un clasificador KNN dentro de un marco MultiOutput. El conjunto de datos se dividió en conjuntos de entrenamiento, validación y prueba utilizando una división 60-20-20.\\ 
+Pero cuál sería el mejor valor de K para el modelo, para esto se realizó una búsqueda de hiperparámetros con valores de K de 1 a 100 sobre el conjunto de validación, dando como resultado que K = 8 era el valor con mayor precisión en los resultados.
 
 \begin{lstlisting}[language=Python, caption=KNN]
-    
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
+        
     neighbors = np.arange(1, 100)
-    train_accuracies = {}
-    test_accuracies = {}
     reports = []
     for neighbor in neighbors:
         knn = KNeighborsClassifier(n_neighbors=neighbor)
         mlb_knn = MultiOutputClassifier(knn)
         mlb_knn.fit(X_train, y_train)
-        ypred = mlb_knn.predict(X_test) 
-        train_accuracies[neighbor] = mlb_knn.score(X_train, y_train)
-        test_accuracies[neighbor] = mlb_knn.score(X_test, y_test)
-        reports.append(classification_report(y_test, ypred, zero_division = 0))
+        ypred = mlb_knn.predict(X_validation) 
+        reports.append(classification_report(y_validation, ypred, zero_division = 0))
     \end{lstlisting}
 
 \subsubsection{Resultados}
-\begin{itemize}
-    \item Informe de Clasificación
-\end{itemize}
-
-\begin{verbatim}
-report = classification_report(y_test, y_pred, target_names=list(all_tags))
-\end{verbatim}
 
 \begin{tabular}{lrrrr}
     \toprule
-                           & precision & recall   & f1-score & support    \\
+    {}                      & auc-roc \\
     \midrule
-    math                   & 0.410256  & 0.163265 & 0.233577 & 98.000000  \\
-    strings                & 0.555556  & 0.500000 & 0.526316 & 30.000000  \\
-    datastructures         & 0.900000  & 0.209302 & 0.339623 & 43.000000  \\
-    greedy                 & 0.500000  & 0.350000 & 0.411765 & 100.000000 \\
-    dfsandsimilar          & 0.000000  & 0.000000 & 0.000000 & 10.000000  \\
-    constructivealgorithms & 0.100000  & 0.017544 & 0.029851 & 57.000000  \\
-    implementation         & 0.602740  & 0.325926 & 0.423077 & 135.000000 \\
-    geometry               & 1.000000  & 0.062500 & 0.117647 & 16.000000  \\
-    bruteforce             & 0.500000  & 0.015152 & 0.029412 & 66.000000  \\
-    dp                     & 0.000000  & 0.000000 & 0.000000 & 47.000000  \\
+    brute force             & 0.51701 \\
+    constructiv ealgorithms & 0.54449 \\
+    data structures         & 0.60976 \\
+    dfs and similar         & 0.50000 \\
+    dp                      & 0.50000 \\
+    geometry                & 0.50000 \\
+    greedy                  & 0.54201 \\
+    implementation          & 0.57758 \\
+    math                    & 0.52466 \\
+    strings                 & 0.73744 \\
     \bottomrule
 \end{tabular}
 
-\begin{itemize}
-    \item Accuracy
-\end{itemize}
-\begin{verbatim}
-Overall Accuracy: 8.00\%
-\end{verbatim}
+\vspace{0.5cm}
 
-\newpage
+\textbf{ROC AUC Scores}: El valor ideal para ROC AUC es 1, mientras que un valor de 0.5 sugiere que el modelo no está mejor que el azar.
+
 \begin{itemize}
-    \item Precision ,F1-Score ,Recall y Support para cada etiqueta
+    \item \textbf{bruteforce}: 0.517 $\rightarrow$ Desempeño cercano al azar, pero ligeramente mejor.
+    \item \textbf{greedy}: 0.542 $\rightarrow$ Ligeramente mejor que el azar, aunque lejos de ser excelente.
+    \item \textbf{math}: 0.524 $\rightarrow$ Similar al azar, muestra poca capacidad del modelo para predecir correctamente.
+    \item \textbf{datastructures}: 0.610 $\rightarrow$ Este es el primer puntaje que indica una mejora apreciable sobre el azar, sugiriendo que el modelo tiene mejor capacidad de clasificación en esta etiqueta.
+    \item \textbf{implementation}: 0.577 $\rightarrow$ Un desempeño aceptable, pero aún limitado.
+    \item \textbf{strings}: 0.737 $\rightarrow$ Buen desempeño, el modelo parece funcionar bastante bien en problemas de tipo ``strings''.
+    \item \textbf{dp, geometry, dfsandsimilar}: 0.5 $\rightarrow$ Desempeño similar al azar, sin capacidad de predicción en estas categorías.
+    \item \textbf{constructivealgorithms}: 0.544 $\rightarrow$ Ligeramente mejor que el azar.
 \end{itemize}
+
+\textbf {ROC AUC Score (0.55529)}: Un ROC AUC Score de 0.555 indica que el modelo tiene un desempeño apenas mejor que el azar (0.5), pero muy lejos de ser un buen clasificador. Aunque hay una ligera capacidad de discriminación entre las clases, es bastante limitada y sugiere que el modelo no está capturando adecuadamente las características de los datos para predecir con precisión.\\
+
+\textbf{F1 Score (0.208)}: Un F1 Score bajo sugiere que el modelo está teniendo problemas para balancear la precisión y el \textit{recall}, lo que implica que la clasificación en general está lejos de ser efectiva.
+
+
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.49]{imgs/precisonknn.png}
-    \caption{Precision}
-    \label{fig:p}
+    \includegraphics[scale=0.55]{imgs/roc_auc_knn.png}
+    \caption{Etiquetas ROC-AUC}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/f1knn.png}
-    \caption{F1-Score}
-    \label{fig:f1}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/recallknn.png}
-    \caption{Recall}
-    \label{fig:r}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.49]{imgs/supportkn.png}
-    \caption{Support}
-    \label{fig:s}
-\end{figure}
+
+El modelo tiene un desempeño moderado en etiquetas como "datastructures" y "strings", pero lucha considerablemente con otras como "dp", "geometry", y "dfsandsimilar", donde su capacidad predictiva es casi nula.
 
 \subsection{Clasificación Multietiqueta usando Deep Learning}
 
@@ -668,7 +660,7 @@ alcanzados en el último checkpoint de nuestro modelo:
     {}                      & auc-roc \\
     \midrule
     brute force             & 0.53433 \\
-    constructiv ealgorithms & 0.60461 \\
+    constructive algorithms & 0.60461 \\
     data structures         & 0.55745 \\
     dfs and similar         & 0.39719 \\
     dp                      & 0.53294 \\
@@ -730,7 +722,7 @@ def prompt(description):
     3  & F1 (weighted) & 0.017556 & 0.320000    & 0.260000 & 0.3973457965486768  \\
     4  & F1 (samples)  & 0.002431 & 0.390000    & 0.240000 & 0.4023785103785104  \\
     \bottomrule
-\end{tabular}
+\end{tabular}\\\\
 
 En el resto de los modelos comparados se obtuvieron mejores métricas en general, también vale destacar que no nos fue posible
 usar ChatGPT 4o, modelo de mayor complejidad con le que esperamos que se comporte mejor, además de que solo nos fue posible 
