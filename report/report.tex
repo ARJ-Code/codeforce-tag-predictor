@@ -161,16 +161,6 @@ El objetivo general de este proyecto es desarrollar un sistema automatizado util
           \end{itemize}
 \end{itemize}
 
-\subsubsection{Preguntas Científicas}
-
-\begin{itemize}
-    \item ¿Qué algoritmos de Machine Learning son más efectivos para la tarea de detección de etiquetas en problemas de programación competitiva?
-    \item ¿Cómo influye la calidad y cantidad de los datos de entrenamiento en el rendimiento del modelo?
-    \item ¿En qué medida las restricciones de tiempo y memoria impactan en la precisión de la detección de etiquetas?
-    \item ¿Es posible mejorar la detección de etiquetas utilizando información adicional del código de soluciones aceptadas?
-    \item ¿Cuáles son las principales limitaciones y desafíos al aplicar Machine Learning en la detección de etiquetas en problemas de programación competitiva?
-\end{itemize}
-
 \section{Análisis de los datos}
 
 Como dataset usaremos un conjunto de problemas de Codeforces con su identificador, descripción, conjunto de tags, puntos y rating. 
@@ -193,96 +183,112 @@ información puede ser útil para el futuro análisis empleando modelos de lengu
           \begin{center}
               \includegraphics[scale=0.8]{imgs/len_description.png}
           \end{center}
+          en la gráfica anterior se puede observar que la longitud de los problemas que más abunda sobre los 2000 caracteres.
           \newpage          
     \item Frecuencia de las etiquetas más comunes
           \begin{center}
               \includegraphics[scale=0.8]{imgs/common_tags_count.png}
           \end{center}
+          en la gráfica anterior se puede observar que la etiqueta más común es \textbf{implementation}, esto es bastante común, ya
+          que la dificultad de muchos problemas además de la idea radica en la implementación de los algoritmos (sería interesante medir
+          como se comporta la clasificación de un problema usando esta etiqueta si solo nos enfocáramos en el código del problema). 
     \item Distribución de idiomas
           \begin{center}
               \includegraphics[scale=0.6]{imgs/langs_dist.png}
           \end{center}
+          en la gráfica anterior se puede observar que el idioma más común es el \textbf{Inglés} y una pequeña parte en ruso, en este trabajo
+          solo consideraremos los ejercicios en idioma \textbf{Inglés}.
           \newpage
           
     \item Nube de palabras asociada a la descripción de los problemas
           \begin{center}
               \includegraphics[scale=0.55]{imgs/wordcloud.png}
           \end{center}
+          en la gráfica anterior se pueden observar las palabras que más se repiten, la palabra más común es \textbf{Number}, lo que coincide con
+          el tema fundamental de estos ejercicio ya que la mayoría tratan problemas relacionados con la Matemática. Después se observan las palabras
+          \textbf{test} y \textbf{case}, título de la sección donde se describen los casos de prueba del problema.
+          \newpage
+          
     \item Matriz de correlación de las etiquetas
           \begin{center}
               \includegraphics[scale=0.5]{imgs/correlation_matrix.png}
           \end{center}
+          en la gráfica anterior se puede observar la matriz de correlación de las etiquetas que muestra para cada para de etiquetas la frecuencia
+          de los problemas donde estas se aparecen a la vez. Se puede observar una estrecha relación entre los problemas con las etiquetas \textbf{dfs and similar}, \textbf{graphs} y \textbf{trees}
+          (esto tomando cada par de etiquetas donde participan 2 de estas 3, con una mayor relación para el para \textbf{dfs and similar} y \textbf{graphs}), esto a raíz de que para los problemas de grafos
+          y en un caso particular de árboles es muy común una vía de solución usando \textbf{DFS}.
+          
 \end{itemize}
 
 \subsection{Preprocesamiento de datos}
 
-    En el preprocesamiento de datos, se realizaron varios pasos para 
-    limpiar y normalizar los textos de las descripciones y otros campos del 
-    conjunto de datos. A continuación, se describen las principales etapas 
-    y funciones utilizadas:
+En el preprocesamiento de datos, se realizaron varios pasos para 
+limpiar y normalizar los textos de las descripciones y otros campos del 
+conjunto de datos. A continuación, se describen las principales etapas 
+y funciones utilizadas:
 
-    \begin{enumerate}
-        \item \textbf{Corrección de capitalización después de puntos}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{processing\_dot\_capitalize}
-            \item \textbf{Descripción:} Añade un espacio antes de una letra mayúscula si viene después de un punto, para corregir errores de capitalización en los textos.
-        \end{itemize}
-        \item \textbf{Reemplazo de notación exponencial}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{replace\_exponent\_notation}
-            \item \textbf{Descripción:} Convierte notaciones como $10^6$ a su equivalente numérico 1000000 usando expresiones regulares.
-        \end{itemize}
-        \item \textbf{Espaciado entre signos de dólar}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{add\_spacing\_between\_dollar\_signs}
-            \item \textbf{Descripción:} Añade espacios alrededor de los símbolos \$\$\$ para facilitar el procesamiento posterior.
-        \end{itemize}
-        \item \textbf{Conversión a minúsculas}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{convert\_to\_lowercase}
-            \item \textbf{Descripción:} Convierte todo el texto a minúsculas para una normalización uniforme.
-        \end{itemize}
-        \item \textbf{Cálculo de multiplicaciones en el texto}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{calculate\_multiplication}
-            \item \textbf{Descripción:} Evalúa y reemplaza expresiones de multiplicación como 2 \textbackslash cdot 100000 por su resultado 200000.
-        \end{itemize}
-        \item \textbf{Preprocesamiento general}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{preprocessing}
-            \item \textbf{Descripción:} Aplica todas las funciones anteriores secuencialmente para limpiar y normalizar el texto.
-        \end{itemize}
-        \item \textbf{Tokenización y lemmatización}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{split\_sentences, split\_words, lemmatization}
-            \item \textbf{Descripción:} Divide el texto en oraciones y palabras, y aplica lematización para reducir las palabras a su forma base.
-        \end{itemize}
-        \item \textbf{Eliminación de stopwords}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{remove\_stopwords}
-            \item \textbf{Descripción:} Elimina palabras comunes (stopwords) para reducir el ruido en los datos.
-        \end{itemize}
-        \item \textbf{Procesamiento de descripciones}
-        \begin{itemize}
-            \item \textbf{Función:} \texttt{get\_preprocessed\_sentence}
-            \item \textbf{Descripción:} Aplica todas las técnicas de preprocesamiento a cada descripción en el conjunto de datos.
-        \end{itemize}
-        \item \textbf{Procesamiento de límites de tiempo y memoria}
-        \begin{itemize}
-            \item \textbf{Descripción:} Convierte los límites de tiempo y memoria a formatos numéricos apropiados, eliminando unidades innecesarias y valores nulos.
-        \end{itemize}
-        \item \textbf{Eliminación de columnas innecesarias}
-        \begin{itemize}
-            \item \textbf{Descripción:} Se eliminan columnas no relevantes como \texttt{input\_file} y \texttt{output\_file} para simplificar el conjunto de datos.
-        \end{itemize}
-    \end{enumerate}
+\begin{enumerate}
+    \item \textbf{Corrección de capitalización después de puntos}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{processing\_dot\_capitalize}
+              \item \textbf{Descripción:} Añade un espacio antes de una letra mayúscula si viene después de un punto, para corregir errores de capitalización en los textos.
+          \end{itemize}
+    \item \textbf{Reemplazo de notación exponencial}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{replace\_exponent\_notation}
+              \item \textbf{Descripción:} Convierte notaciones como $10^6$ a su equivalente numérico 1000000 usando expresiones regulares.
+          \end{itemize}
+    \item \textbf{Espaciado entre signos de dólar}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{add\_spacing\_between\_dollar\_signs}
+              \item \textbf{Descripción:} Añade espacios alrededor de los símbolos \$\$\$ para facilitar el procesamiento posterior.
+          \end{itemize}
+    \item \textbf{Conversión a minúsculas}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{convert\_to\_lowercase}
+              \item \textbf{Descripción:} Convierte todo el texto a minúsculas para una normalización uniforme.
+          \end{itemize}
+    \item \textbf{Cálculo de multiplicaciones en el texto}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{calculate\_multiplication}
+              \item \textbf{Descripción:} Evalúa y reemplaza expresiones de multiplicación como 2 \textbackslash cdot 100000 por su resultado 200000.
+          \end{itemize}
+    \item \textbf{Preprocesamiento general}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{preprocessing}
+              \item \textbf{Descripción:} Aplica todas las funciones anteriores secuencialmente para limpiar y normalizar el texto.
+          \end{itemize}
+    \item \textbf{Tokenización y lemmatización}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{split\_sentences, split\_words, lemmatization}
+              \item \textbf{Descripción:} Divide el texto en oraciones y palabras, y aplica lematización para reducir las palabras a su forma base.
+          \end{itemize}
+    \item \textbf{Eliminación de stopwords}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{remove\_stopwords}
+              \item \textbf{Descripción:} Elimina palabras comunes (stopwords) para reducir el ruido en los datos.
+          \end{itemize}
+    \item \textbf{Procesamiento de descripciones}
+          \begin{itemize}
+              \item \textbf{Función:} \texttt{get\_preprocessed\_sentence}
+              \item \textbf{Descripción:} Aplica todas las técnicas de preprocesamiento a cada descripción en el conjunto de datos.
+          \end{itemize}
+    \item \textbf{Procesamiento de límites de tiempo y memoria}
+          \begin{itemize}
+              \item \textbf{Descripción:} Convierte los límites de tiempo y memoria a formatos numéricos apropiados, eliminando unidades innecesarias y valores nulos.
+          \end{itemize}
+    \item \textbf{Eliminación de columnas innecesarias}
+          \begin{itemize}
+              \item \textbf{Descripción:} Se eliminan columnas no relevantes como \texttt{input\_file} y \texttt{output\_file} para simplificar el conjunto de datos.
+          \end{itemize}
+\end{enumerate}
 
-    En resumen, el preprocesamiento de datos incluyó la normalización y 
-    limpieza del texto, lematización, eliminación de stopwords, procesamiento 
-    de signos de dólar, tokenización y el manejo de valores en columnas 
-    específicas como límites de tiempo y memoria. Estas transformaciones 
-    aseguraron que los datos estuvieran en un formato adecuado para ser 
-    utilizados en el modelo de clasificación.
+En resumen, el preprocesamiento de datos incluyó la normalización y 
+limpieza del texto, lematización, eliminación de stopwords, procesamiento 
+de signos de dólar, tokenización y el manejo de valores en columnas 
+específicas como límites de tiempo y memoria. Estas transformaciones 
+aseguraron que los datos estuvieran en un formato adecuado para ser 
+utilizados en el modelo de clasificación.
 
 
 \section{Estado del arte}
@@ -319,6 +325,7 @@ papers estudiados.
               
               
               
+              
                              & Long Short Term Memory (LSTM), Random Forest, dummy classifier 
                              & Only Random Forest outperformed the dummy classifier, which predicted the most popular class 
                              & Codeforces, considering only the first tag for each problem 
@@ -329,6 +336,7 @@ papers estudiados.
                              & 2019
                              & \href{https://aclanthology.org/D19-5511/}{\url{https://aclanthology.org/D19-5511/}}
 
+              
               
               
               
@@ -349,6 +357,7 @@ papers estudiados.
               
               
               
+              
                              & Long Short Term Memory (LSTM)
                              & Best F1 score by LSTM over one-hot encoding; best Weighted Hamming Score by LSTM over word2vec 
                              & Codeforces and TopCoder, tags sorted into 9 classes 
@@ -359,6 +368,7 @@ papers estudiados.
                              & 2019
                              & \href{https://dl.acm.org/doi/10.1145/3323771.3323795}{\url{https://dl.acm.org/doi/10.1145/3323771.3323795}}
 
+              
               
               
               
@@ -398,6 +408,7 @@ papers estudiados.
               
               
               
+              
                              & Traditional classification algorithms 
                              & Successful application of traditional classification algorithms and code metrics for classifying solutions 
                              & Codeforces 
@@ -409,6 +420,7 @@ papers estudiados.
                              & 2017
                              & \href{https://www.researchgate.net/publication/321868484_Classification_and_Recommendation_of_Competitive_Programming_Problems_Using_CNN}{\url{https://www.researchgate.net/publication/321868484_Classification_and_Recommendation_of_Competitive_Programming_Problems_Using_CNN}}
 
+              
               
               
               
@@ -455,7 +467,7 @@ donde $l$ es una pérdida de entropía cruzada binaria para las categorías $y$ 
 
 Recolectamos en total 7968 problemas de algoritmos de CodeForces, con 37 etiquetas distintas. 
 Utilizamos un extractor de features basado en BERT y una red de cabeza de 
-clasificación. Usamos la arquitectura \href{https://huggingface.co/google/bigbird-roberta-base}{BigBird} 
+clasificación. Usamos la arquitectura \href{https://huggingface.co/google/bigbird-roberta-base}{BigBird}
 en nuestra modelación que nos permite introducir extensas secuencias de tokens.
 
 \section{Experimentación y resultados}
@@ -642,59 +654,59 @@ Overall Accuracy: 8.00\%
 
 \subsection{Clasificación Multietiqueta usando Deep Learning}
 
-    A pesar de haber recolectado un dataset de problemas tan extenso, por cuestiones de 
-    rapidez en el cómputo decidimos solo usar 1625 de ellos, la mitad 
-    del total teniendo en cuenta únicamente los problemas que solo están 
-    tagueados con las etiquetas más comunes. En nuestros experimentos, evaluamos varias configuraciones 
-    iniciales para el entrenamiento del modelo de clasificación de texto con el objetivo de 
-    validar la efectividad de nuestro conjunto de datos propuesto. Sin embargo, no nos fue posible 
-    concluirlo, pudiendo completar solo el 25\% de las epochs previstas. Estos fueron los resultados 
-    alcanzados en el último checkpoint de nuestro modelo:
+A pesar de haber recolectado un dataset de problemas tan extenso, por cuestiones de 
+rapidez en el cómputo decidimos solo usar 1625 de ellos, la mitad 
+del total teniendo en cuenta únicamente los problemas que solo están 
+tagueados con las etiquetas más comunes. En nuestros experimentos, evaluamos varias configuraciones 
+iniciales para el entrenamiento del modelo de clasificación de texto con el objetivo de 
+validar la efectividad de nuestro conjunto de datos propuesto. Sin embargo, no nos fue posible 
+concluirlo, pudiendo completar solo el 25\% de las epochs previstas. Estos fueron los resultados 
+alcanzados en el último checkpoint de nuestro modelo:
 
-    \begin{tabular}{lrrrr}
-        \toprule
-        {}                      & auc-roc  \\
-        \midrule
-        brute force             & 0.53433  \\
-        constructiv ealgorithms & 0.60461  \\
-        data structures         & 0.55745  \\
-        dfs and similar         & 0.39719  \\
-        dp                      & 0.53294  \\
-        geometry                & 0.64132  \\
-        greedy                  & 0.62073  \\
-        implementation          & 0.60420  \\
-        math                    & 0.65266  \\
-        strings                 & 0.67921  \\
-        \bottomrule
-    \end{tabular}
+\begin{tabular}{lrrrr}
+    \toprule
+    {}                      & auc-roc \\
+    \midrule
+    brute force             & 0.53433 \\
+    constructiv ealgorithms & 0.60461 \\
+    data structures         & 0.55745 \\
+    dfs and similar         & 0.39719 \\
+    dp                      & 0.53294 \\
+    geometry                & 0.64132 \\
+    greedy                  & 0.62073 \\
+    implementation          & 0.60420 \\
+    math                    & 0.65266 \\
+    strings                 & 0.67921 \\
+    \bottomrule
+\end{tabular}
 
-    \begin{itemize}
-        \item \textbf{ROC-AUC Score = $0.5824715558064865$}: Esta métrica indica que, en promedio, el modelo tiene una 
-        capacidad moderada para distinguir entre las clases. Un valor de 0.5 sugiere que el modelo 
-        no tiene mejor rendimiento que una clasificación aleatoria, mientras que un valor de 1 
-        indica una clasificación perfecta. Por lo tanto, un AUC-ROC de aproximadamente 0.582 sugiere 
-        que hay margen para mejorar el modelo. AUC-ROC  es el Área Bajo la Curva del Receptor Operador 
-        Característico.
-        \item \textbf{F1 Score = $0.3080225264908538$}: El F1 score combina precisión y recall en una 
-        sola métrica. Un valor de 0.308 indica que el modelo tiene un rendimiento bajo en términos de 
-        equilibrio entre estos dos aspectos. Nuevamente, esto sugiere que hay espacio para mejoras.
-        \item \textbf{Umbral de decisión = $0.001$}: Este valor indica el umbral utilizado para convertir las 
-        probabilidades de las etiquetas en predicciones binarias. Un umbral tan bajo podría estar 
-        indicando que el modelo está tratando de ser muy inclusivo (es decir, prefiere clasificar 
-        algo como positivo con una probabilidad muy baja), lo cual evidentemente está afectando la 
-        precisión de las predicciones.
-    \end{itemize}
+\begin{itemize}
+    \item \textbf{ROC-AUC Score = $0.5824715558064865$}: Esta métrica indica que, en promedio, el modelo tiene una
+          capacidad moderada para distinguir entre las clases. Un valor de 0.5 sugiere que el modelo 
+          no tiene mejor rendimiento que una clasificación aleatoria, mientras que un valor de 1 
+          indica una clasificación perfecta. Por lo tanto, un AUC-ROC de aproximadamente 0.582 sugiere 
+          que hay margen para mejorar el modelo. AUC-ROC  es el Área Bajo la Curva del Receptor Operador 
+          Característico.
+    \item \textbf{F1 Score = $0.3080225264908538$}: El F1 score combina precisión y recall en una
+          sola métrica. Un valor de 0.308 indica que el modelo tiene un rendimiento bajo en términos de 
+          equilibrio entre estos dos aspectos. Nuevamente, esto sugiere que hay espacio para mejoras.
+    \item \textbf{Umbral de decisión = $0.001$}: Este valor indica el umbral utilizado para convertir las
+          probabilidades de las etiquetas en predicciones binarias. Un umbral tan bajo podría estar 
+          indicando que el modelo está tratando de ser muy inclusivo (es decir, prefiere clasificar 
+          algo como positivo con una probabilidad muy baja), lo cual evidentemente está afectando la 
+          precisión de las predicciones.
+\end{itemize}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.55]{imgs/roc_auc.jpg}
-        \caption{Tags ROC-AUC}
-    \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.55]{imgs/roc_auc.jpg}
+    \caption{Tags ROC-AUC}
+\end{figure}
 
-    Dado el rendimiento moderado en AUC-ROC y bajo en F1 score, además de la variabilidad notable en 
-    el rendimiento del modelo entre diferentes etiquetas se podría explorar mejorar el 
-    preprocesamiento de datos, el ajuste de hiperparámetros del modelo, o incluso el uso de técnicas 
-    de balanceo de clases para obtener mejores métricas.
+Dado el rendimiento moderado en AUC-ROC y bajo en F1 score, además de la variabilidad notable en 
+el rendimiento del modelo entre diferentes etiquetas se podría explorar mejorar el 
+preprocesamiento de datos, el ajuste de hiperparámetros del modelo, o incluso el uso de técnicas 
+de balanceo de clases para obtener mejores métricas.
 
 
 \subsection{Chat GPT}
@@ -732,15 +744,15 @@ Los resultados obtenidos muestran una clara variabilidad en el rendimiento de lo
 
 \begin{itemize}
     \item \textbf{Accuracy:} El modelo basado en ChatGPT presentó la menor precisión (0.020000), indicando que el modelo no fue efectivo en predecir las etiquetas correctas de los problemas. Por otro lado, el modelo de Deep Learning alcanzó la mayor precisión (0.12615384615384614), seguido por Naive Bayes (0.146000). Aunque estas precisiones son bajas, el modelo de Deep Learning muestra un rendimiento relativamente mejor.
-
+          
     \item \textbf{F1 (macro):} Esta métrica mide el equilibrio entre la precisión y el recall para cada clase y promedia estos valores. Aquí, el modelo de Deep Learning obtuvo el valor más alto (0.3012989902488488), indicando un mejor desempeño general en todas las etiquetas. Naive Bayes y KNN también mostraron un rendimiento aceptable con valores de 0.240000 y 0.210000 respectivamente.
-
+          
     \item \textbf{F1 (micro):} El F1 (micro) considera el total de verdaderos positivos, falsos negativos y falsos positivos. Los modelos Naive Bayes y Deep Learning destacaron con valores de 0.390000 y 0.4228110599078341 respectivamente. Estos resultados sugieren que, en términos de equilibrio global, ambos modelos gestionan bien la clasificación de las etiquetas.
-
+          
     \item \textbf{F1 (weighted):} Similar al F1 (macro), pero ponderado por el soporte (número de verdaderos ejemplos en cada clase). Deep Learning nuevamente mostró el mejor desempeño (0.3973457965486768), seguido por Naive Bayes (0.320000). Este resultado indica que el modelo de Deep Learning maneja mejor las clases con un mayor número de ejemplos.
-
+          
     \item \textbf{F1 (samples):} Esta métrica evalúa el rendimiento medio de la clasificación de etiquetas para cada muestra. El modelo de Deep Learning logró el mayor valor (0.4023785103785104), destacando su capacidad para predecir múltiples etiquetas por problema con mayor precisión. Naive Bayes también obtuvo un valor alto (0.390000), indicando un buen rendimiento en esta métrica.
-
+          
 \end{itemize}
 
 En resumen, aunque ninguno de los modelos alcanzó un rendimiento excelente, el modelo de Deep Learning mostró un rendimiento superior en la mayoría de las métricas, seguido por Naive Bayes. Estos resultados sugieren que, con ajustes y mejoras adicionales, el enfoque de Deep Learning podría ser más efectivo para la tarea de etiquetado de problemas de Codeforces.
