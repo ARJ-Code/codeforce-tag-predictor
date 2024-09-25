@@ -465,7 +465,7 @@ Recolectamos en total 7968 problemas de algoritmos de CodeForces, con 37 etiquet
 Utilizamos un extractor de features basado en BERT y una red de cabeza de 
 clasificación. Usamos la arquitectura \href{https://huggingface.co/google/bigbird-roberta-base}{BigBird}
 en nuestra modelación que nos permite introducir extensas secuencias de tokens.
-
+\newpage
 \section{Experimentación y resultados}
 
 \subsection{Clasificación Multietiqueta con TF-IDF y Naive Bayes}
@@ -493,7 +493,6 @@ clf = OneVsRestClassifier(MultinomialNB())
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 \end{lstlisting}
-\newpage
 
 \subsubsection{Resultados}
 \begin{table}[ht!]
