@@ -508,6 +508,7 @@ y_pred = clf.predict(X_test)
             \bottomrule
         \end{tabular}
         \caption{ROC-AUC Scores}
+	\label{ras}
     \end{minipage}%
     \hspace{0.05\textwidth} % Espacio entre tablas
     \begin{minipage}{0.45\textwidth}
@@ -529,6 +530,7 @@ y_pred = clf.predict(X_test)
             \bottomrule
         \end{tabular}
         \caption{ROC-AUC Scores (Al menos una etiqueta por problema)}
+	\label{rasc}
     \end{minipage}
 \end{table}
 \newpage
@@ -538,14 +540,14 @@ y_pred = clf.predict(X_test)
 \end{itemize}
 \begin{verbatim}
 F1 Score: 0.16300
-F1 Score (Al menos un tag por problema): 0.23954
+F1 Score (Al menos una etiqueta por problema): 0.23954
 \end{verbatim}
 \begin{itemize}
     \item ROC-AUC Score:
 \end{itemize}
 \begin{verbatim}
 ROC-AUC Score: 0.54111
-ROC-AUC Score (Al menos un tag por problema): 0.56043
+ROC-AUC Score (Al menos una etiqueta por problema): 0.56043
 \end{verbatim}
 \begin{itemize}
     \item Umbral de Decisi\'on usado (Ambos Casos):
@@ -556,10 +558,9 @@ Umbral de Decisión: 0.5
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{imgs/roc\_auc\_nb.png}
-    \caption{Tags ROC-AUC}
-    \label{fig:ranb}
+    \caption{Etiquetas ROC-AUC}\label{fig:ranb}
 \end{figure}
-Como se pude apreciar el agregarle la etiqueta mas probable a aquellos problemas que no les fueron asignados por el modelo ninguna etiqueta hace una mejora en los resultados obtenidos en casi todas las métricas usadas, solo las etiqueta brute force  e implementation obtienen un mejor valor en roc-auc sin hacer esto, lo cual está dado a que aquellos problemas sin etiquetar se le haya asignado su etiqueta incorrectamente .\\\newline
+Como se pude apreciar en el Cuadro \ref{ras} y Cuadro \ref{rasc} el agregarle la etiqueta más probable a aquellos problemas que no les fueron asignados por el modelo ninguna etiqueta hace una mejora en los resultados obtenidos en casi todas las métricas usadas, solo las etiqueta brute force  e implementation obtienen un mejor valor en roc-auc sin hacer esto, lo cual está dado a que aquellos problemas sin etiquetar se le haya asignado su etiqueta incorrectamente. Con respecto a la Figura  \ref{fig:ranb} podemos apreciar las curvas por encima de la diagonal, esta última que representa el azar ,lo que nos sugiere que nuestro modelo es capaz de predecir con un cierta confianza de que sea cierto.
 
 \newpage
 
