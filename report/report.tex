@@ -716,11 +716,8 @@ def prompt(description):
     \toprule
     {} & Metric        & ChatGPT  & Naive Bayes & KNN      & Deep Learning       \\
     \midrule
-    0  & Accuracy      & 0.020000 & 0.146000    & 0.080000 & 0.12615384615384614 \\
-    1  & F1 (macro)    & 0.002431 & 0.240000    & 0.210000 & 0.3012989902488488  \\
-    2  & F1 (micro)    & 0.020000 & 0.390000    & 0.290000 & 0.4228110599078341  \\
-    3  & F1 (weighted) & 0.017556 & 0.320000    & 0.260000 & 0.3973457965486768  \\
-    4  & F1 (samples)  & 0.002431 & 0.390000    & 0.240000 & 0.4023785103785104  \\
+    0  & ROC-AUC score      & 0.020000 & 0.146000    & 0.080000 & 0.12615384615384614 \\
+    1  & F1 score    & 0.002431 & 0.240000    & 0.210000 & 0.3012989902488488  \\
     \bottomrule
 \end{tabular}\\\\
 
@@ -735,16 +732,9 @@ de lenguaje.
 Los resultados obtenidos muestran una clara variabilidad en el rendimiento de los modelos utilizados para la tarea de etiquetado de problemas de Codeforces. A continuación se discuten las observaciones clave de las métricas presentadas:
 
 \begin{itemize}
-    \item \textbf{Accuracy:} El modelo basado en ChatGPT presentó la menor precisión (0.020000), indicando que el modelo no fue efectivo en predecir las etiquetas correctas de los problemas. Por otro lado, el modelo de Deep Learning alcanzó la mayor precisión (0.12615384615384614), seguido por Naive Bayes (0.146000). Aunque estas precisiones son bajas, el modelo de Deep Learning muestra un rendimiento relativamente mejor.
+    \item \textbf{ROC-AUC score:} El modelo basado en ChatGPT presentó la menor precisión (0.020000), indicando que el modelo no fue efectivo en predecir las etiquetas correctas de los problemas. Por otro lado, el modelo de Deep Learning alcanzó la mayor precisión (0.12615384615384614), seguido por Naive Bayes (0.146000). Aunque estas precisiones son bajas, el modelo de Deep Learning muestra un rendimiento relativamente mejor.
           
-    \item \textbf{F1 (macro):} Esta métrica mide el equilibrio entre la precisión y el recall para cada clase y promedia estos valores. Aquí, el modelo de Deep Learning obtuvo el valor más alto (0.3012989902488488), indicando un mejor desempeño general en todas las etiquetas. Naive Bayes y KNN también mostraron un rendimiento aceptable con valores de 0.240000 y 0.210000 respectivamente.
-          
-    \item \textbf{F1 (micro):} El F1 (micro) considera el total de verdaderos positivos, falsos negativos y falsos positivos. Los modelos Naive Bayes y Deep Learning destacaron con valores de 0.390000 y 0.4228110599078341 respectivamente. Estos resultados sugieren que, en términos de equilibrio global, ambos modelos gestionan bien la clasificación de las etiquetas.
-          
-    \item \textbf{F1 (weighted):} Similar al F1 (macro), pero ponderado por el soporte (número de verdaderos ejemplos en cada clase). Deep Learning nuevamente mostró el mejor desempeño (0.3973457965486768), seguido por Naive Bayes (0.320000). Este resultado indica que el modelo de Deep Learning maneja mejor las clases con un mayor número de ejemplos.
-          
-    \item \textbf{F1 (samples):} Esta métrica evalúa el rendimiento medio de la clasificación de etiquetas para cada muestra. El modelo de Deep Learning logró el mayor valor (0.4023785103785104), destacando su capacidad para predecir múltiples etiquetas por problema con mayor precisión. Naive Bayes también obtuvo un valor alto (0.390000), indicando un buen rendimiento en esta métrica.
-          
+    \item \textbf{F1 score:} Esta métrica mide el equilibrio entre la precisión y el recall para cada clase y promedia estos valores. Aquí, el modelo de Deep Learning obtuvo el valor más alto (0.3012989902488488), indicando un mejor desempeño general en todas las etiquetas. Naive Bayes y KNN también mostraron un rendimiento aceptable con valores de 0.240000 y 0.210000 respectivamente.       
 \end{itemize}
 
 En resumen, aunque ninguno de los modelos alcanzó un rendimiento excelente, el modelo de Deep Learning mostró un rendimiento superior en la mayoría de las métricas, seguido por Naive Bayes. Estos resultados sugieren que, con ajustes y mejoras adicionales, el enfoque de Deep Learning podría ser más efectivo para la tarea de etiquetado de problemas de Codeforces.
